@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>用AJAX以JSON方式获取数据</title>
+</head>
+<body>
+	<input type="button" value="通过AJAX获取一个Hero对象---" id="sender">
+
+
+
+</body>
+<script type="text/javascript" src="../LayUI/layui.js"></script>
+<script>
+	layui.use('element', function() {
+		var element = layui.element;
+		var table = layui.table;
+		var $ = layui.$;
+		$('#sender').click(function() {
+			var pam = {
+				id : 1
+			};
+			var url = "/BMS/Operator/getAll";
+			$.post(url, function(data) {
+				var json = JSON.parse(data);
+			});
+		});
+	});
+</script>
+</html>

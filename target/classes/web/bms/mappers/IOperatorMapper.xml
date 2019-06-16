@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+	<mapper namespace="web.bms.mappers.IOperatorMapper">
+	    <insert id="create" parameterType="Operator" >
+	        insert into Operators ( Name ) values (#{name})    
+	    </insert>
+	    
+	    <delete id="delete" parameterType="Operator" >
+	        delete from Operators where Id= #{id}   
+	    </delete>
+	    
+	    <select id="get" parameterType="_int" resultType="Operator">
+	        select * from   Operators  where Id= #{id}    
+	    </select>
+
+	    <update id="update" parameterType="Operator" >
+	        update Operators name=#{name} where Id=#{id}    
+	    </update>
+	    <select id="getAll" resultType="Operator">
+	        select * from Operators
+	    </select>
+	</mapper>
+
