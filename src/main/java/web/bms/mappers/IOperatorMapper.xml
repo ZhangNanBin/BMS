@@ -3,24 +3,69 @@
 	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-	<mapper namespace="web.bms.mappers.IOperatorMapper">
-	    <insert id="create" parameterType="Operator" >
-	        insert into Operators ( Name ) values (#{name})    
-	    </insert>
-	    
-	    <delete id="delete" parameterType="Operator" >
-	        delete from Operators where Id= #{id}   
-	    </delete>
-	    
-	    <select id="get" parameterType="_int" resultType="Operator">
-	        select * from   Operators  where Id= #{id}    
-	    </select>
+<mapper namespace="web.bms.mappers.IOperatorMapper">
+	<insert id="create" parameterType="Operator">
+		INSERT INTO Operators (
+		Number, Name, Sex, Age, IdNumber, WorkDate, Telephone, IsAdmin,
+		PassWord)
+		VALUES ( #{number}, #{name}, #{sex}, #{age}, #{idNumber},
+		#{workDate}, #{telephone}, #{isAdmin}, #{passWord})
+	</insert>
 
-	    <update id="update" parameterType="Operator" >
-	        update Operators name=#{name} where Id=#{id}    
-	    </update>
-	    <select id="getAll" resultType="Operator">
-	        select * from Operators
-	    </select>
-	</mapper>
+	<update id="update" parameterType="Operator">
+		UPDATE Operators SET Number =
+		#{number}, Name = #{name}, Sex = #{sex}, Age = #{age}, IdNumber =
+		#{idNumber}, WorkDate = #{workDate}, Telephone = #{telephone}, IsAdmin
+		= #{isAdmin},PassWord = #{passWord}
+		WHERE Id=#{id}
+	</update>
+
+	<delete id="delete" parameterType="_int">
+		DELETE FROM Operators WHERE
+		Id= #{id}
+	</delete>
+
+	<select id="get" parameterType="_int" resultType="Operator">
+		SELECT * FROM
+		Operators WHERE Id= #{id}
+	</select>
+
+	<select id="select" parameterType="Operator"
+		resultType="Operator">
+		SELECT *
+		FROM
+		Operators WHERE (Number = #{number} or IdNumber
+		=
+		#{idNumber})
+		AND Id != #{id}
+	</select>
+
+	<select id="getAll" resultType="Operator">
+		<bind name="start" value="(page.pageNo-1)*page.pageSize" />
+		SELECT * FROM Operators
+		<where>
+			<if test="name!=null and name!=''">
+				AND Name LIKE "%"#{name}"%"
+			</if>
+			<if test="number!=null and number!=''">
+				AND Number LIKE "%"#{number}"%"
+			</if>
+		</where>
+		<if test="page.pageNo > 0 and page.pageSize > 0">
+			LIMIT #{start}, #{page.pageSize}
+		</if>
+	</select>
+
+	<select id="count" resultType="int">
+		SELECT COUNT(*) FROM Operators
+		<where>
+			<if test="name!=null and name!=''">
+				AND Name LIKE "%"#{name}"%"
+			</if>
+			<if test="number!=null and number!=''">
+				AND Number LIKE "%"#{number}"%"
+			</if>
+		</where>
+	</select>
+</mapper>
 

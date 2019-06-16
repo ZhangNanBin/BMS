@@ -1,20 +1,24 @@
 package web.bms.controllers;
 
-
 import com.alibaba.fastjson.JSONObject;
 
 import web.bms.utility.Success;
 import web.bms.utility.Error;
 
 public class ControllerBase {
+	public static String Success() {
+		return JSONObject.toJSON(new Success()).toString();
+	}
+
 	public static String Success(Object data) {
-		Success s = new Success(data);
-		String result =  JSONObject.toJSON(s).toString();
-		return result;
+		return JSONObject.toJSON(new Success(data)).toString();
+	}
+
+	public static String Success(Object data, int count) {
+		return JSONObject.toJSON(new Success(data, count)).toString();
 	}
 
 	public static String Error(String msg) {
-		String result = JSONObject.toJSON(new Error(msg)).toString();
-		return result;
+		return JSONObject.toJSON(new Error(msg)).toString();
 	}
 }

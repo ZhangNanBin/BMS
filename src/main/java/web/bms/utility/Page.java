@@ -1,15 +1,19 @@
 package web.bms.utility;
 
 public class Page {
+	private int pageNo;
+	private int pageSize;
 
-	int pageNo = 1;
-	int pageSize = 10;
+	public Page(int pageNo, int pageSize) {
+		this.setPageNo(pageNo);
+		this.setPageSize(pageSize);
+	}
 
 	public int getPageNo() {
 		return pageNo;
 	}
 
-	public void settPageNo(int pageNo) {
+	public void setPageNo(int pageNo) {
 		this.pageNo = pageNo;
 	}
 

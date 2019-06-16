@@ -8,30 +8,47 @@ import org.springframework.stereotype.Service;
 import web.bms.entity.Operator;
 import web.bms.mappers.IOperatorMapper;
 import web.bms.services.IOperatorService;
+import web.bms.utility.Page;
 
 @Service
-public class OperatorServiceImpl  implements IOperatorService{
+public class OperatorServiceImpl implements IOperatorService {
 	@Autowired
 	IOperatorMapper operatorMapper;
-	
-	
+
 	@Override
-	public List<Operator> getAll(){
+	public List<Operator> getAll() {
 		return operatorMapper.getAll();
 	}
 
+	@Override
+	public int count() {
+		return operatorMapper.count();
+	}
+
+	@Override
+	public List<Operator> getAll(Page page, String number, String name) {
+		return operatorMapper.getAll(page, number, name);
+	}
+
+	@Override
+	public int count(String number, String name) {
+		return operatorMapper.count(number, name);
+	}
 
 	@Override
 	public Operator get(int id) {
 		return operatorMapper.get(id);
 	}
 
+	@Override
+	public Operator select(Operator operator) {
+		return operatorMapper.select(operator);
+	}
 
 	@Override
 	public void update(Operator operator) {
 		operatorMapper.update(operator);
 	}
-
 
 	@Override
 	public void delete(int id) {

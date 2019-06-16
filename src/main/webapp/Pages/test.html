@@ -3,26 +3,84 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>用AJAX以JSON方式获取数据</title>
+<link rel="stylesheet" href="../LayUI/css/layui.css" media="all">
+
 </head>
 <body>
+	<table id="demo" lay-filter="test"></table>
 	<input type="button" value="通过AJAX获取一个Hero对象---" id="sender">
-
-
-
 </body>
 <script type="text/javascript" src="../LayUI/layui.js"></script>
 <script>
-	layui.use('element', function() {
-		var element = layui.element;
+	layui.use('table', function() {
 		var table = layui.table;
 		var $ = layui.$;
+
+		//GetAll接口实例
+		table.render({
+			elem : '#demo',
+			method : "post",
+			url : '/BMS/Operator/getAll',//数据接口
+			page : true, //开启分页
+			request : {
+				pageName : 'pageNo',//页码的参数名称
+				limitName : 'pageSize' //每页数据量的参数名
+			},
+			where : { // 可使用编号和姓名进行筛选 模糊查找
+				number : "",
+				name : ""
+			},
+			cols : [ [ //表头
+			{
+				field : 'id',
+				title : 'ID',
+				sort : true,
+				fixed : 'left'
+			}, {
+				field : 'number',
+				title : '编号'
+			}, {
+				field : 'name',
+				title : '名字'
+			}, {
+				field : 'sex',
+				title : '性别'
+			} ] ]
+		});
+
 		$('#sender').click(function() {
-			var pam = {
-				id : 1
-			};
-			var url = "/BMS/Operator/getAll";
-			$.post(url, function(data) {
-				var json = JSON.parse(data);
+			// update和create 接口采用JSON数据进行提交
+			$.ajax({
+				type : "post",
+				url : "/BMS/Operator/update",
+				data : JSON.stringify({
+					id : 13, // create时没有Id
+					name : "zhang",
+					number : "zhang",
+					idNumber : "zhang",
+					passWord : "zhangyang"
+				}),
+				dataType : "json",
+				contentType : "application/json;charset=UTF-8",
+				success : function(result) {
+				},
+				error : function(err) {
+
+				}
+			});
+
+			// get和delete采用
+			$.ajax({
+				type : "post",
+				url : "/BMS/Operator/get",
+				data : {
+					id : 13
+				},
+				success : function(result) {
+				},
+				error : function(err) {
+
+				}
 			});
 		});
 	});
