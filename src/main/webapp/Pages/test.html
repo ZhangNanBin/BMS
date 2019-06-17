@@ -21,7 +21,7 @@
 		table.render({
 			elem : '#demo',
 			method : "post",
-			url : '../Reader/getAll',//数据接口
+			url : '../BookCategory/getAll',//数据接口
 			page : true, //开启分页
 			request : {
 				pageName : 'pageNo',//页码的参数名称
@@ -50,55 +50,56 @@
 		});
 
 		$('#sender').click(function() {
-// 			$.ajax({
-// 				type : "post",
-// 				url : "/bms/Reader/create",
-// 				data : JSON.stringify({
-// 					name : "张南彬",
-// 					number : "20164089142",
-// 					idNumber : "522568465564442",
-// 					passWord : "zhangyang",
-// 					maxNumber : 120,
-// 					age : 20
-// 				}),
-// 				dataType : "json",
-// 				contentType : "application/json;charset=UTF-8",
-// 				success : function(result) {
-// 				},
-// 				error : function(err) {
+			$.ajax({
+				type : "post",
+				url : "/bms/BookCategory/create",
+				data : JSON.stringify({
+					name : "test",
+					number : "AB",
+					borrowableDays : 20,
+					finesAmount : 0.5
+				}),
+				dataType : "json",
+				contentType : "application/json;charset=UTF-8",
+				success : function(result) {
+				},
+				error : function(err) {
 
-// 				}
-// 			});
+				}
+			});
 
 			// get和delete采用
-								$.ajax({
-									type : "post",
-									url : "../Security/login",
-									data : {
-										number:"20164089145",
-										passWord:"zhangyang",
-										userType:1
-									},
-									success : function(result) {
-										var re = JSON.parse(result);
-										sessionStorage.setItem('userInfo', JSON
-												.stringify(re.data));
-										var userJsonStr = sessionStorage
-												.getItem('userInfo');
-										var userEntity = JSON.parse(userJsonStr);
+			// 					$.ajax({
+			// 						type : "post",
+			// 						url : "../Security/login",
+			// 						data : {
+			// 							number : "20164089145",
+			// 							passWord : "zhangyang",
+			// 							userType : 1
+			// 						},
+			// 						success : function(result) {
+			// 							var re = JSON.parse(result);
+			// 							sessionStorage.setItem('userInfo', JSON
+			// 									.stringify(re.data));
+			// 							var userJsonStr = sessionStorage
+			// 									.getItem('userInfo');
+			// 							var userEntity = JSON.parse(userJsonStr);
 
-									},
-									error : function(err) {
+			// 						},
+			// 						error : function(err) {
 
-									}
-								});
+			// 						}
+			// 					});
 		});
 
 		$('#test').click(function() {
 			// get和delete采用
 			$.ajax({
 				type : "post",
-				url : "/bms/Security/getSession",
+				data : {
+					id : 2
+				},
+				url : "/bms/BookCategory/delete",
 				success : function(result) {
 					var re = JSON.parse(result);
 					var sex = re.data.sex;

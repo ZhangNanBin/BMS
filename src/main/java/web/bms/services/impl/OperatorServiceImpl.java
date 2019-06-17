@@ -13,20 +13,10 @@ import web.bms.utility.Page;
 @Service
 public class OperatorServiceImpl implements IOperatorService {
 	private IOperatorMapper operatorMapper;
-	
+
 	@Autowired
 	public OperatorServiceImpl(IOperatorMapper operatorMapper) {
 		this.operatorMapper = operatorMapper;
-	}
-
-	@Override
-	public List<Operator> getAll() {
-		return operatorMapper.getAll();
-	}
-
-	@Override
-	public int count() {
-		return operatorMapper.count();
 	}
 
 	@Override
@@ -50,6 +40,11 @@ public class OperatorServiceImpl implements IOperatorService {
 	}
 
 	@Override
+	public void create(Operator operator) {
+		operatorMapper.create(operator);
+	}
+
+	@Override
 	public void update(Operator operator) {
 		operatorMapper.update(operator);
 	}
@@ -57,10 +52,5 @@ public class OperatorServiceImpl implements IOperatorService {
 	@Override
 	public void delete(int id) {
 		operatorMapper.delete(id);
-	}
-
-	@Override
-	public void create(Operator operator) {
-		operatorMapper.create(operator);
 	}
 }

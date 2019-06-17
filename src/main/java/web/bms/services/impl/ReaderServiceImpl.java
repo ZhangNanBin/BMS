@@ -20,16 +20,6 @@ public class ReaderServiceImpl implements IReaderService {
 	}
 
 	@Override
-	public List<Reader> getAll() {
-		return readerMapper.getAll();
-	}
-
-	@Override
-	public int count() {
-		return readerMapper.count();
-	}
-
-	@Override
 	public List<Reader> getAll(Page page, String number, String name) {
 		return readerMapper.getAll(page, number, name);
 	}

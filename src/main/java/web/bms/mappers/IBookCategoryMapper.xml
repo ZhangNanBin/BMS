@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="web.bms.mappers.IBookCategoryMapper">
+	<insert id="create" parameterType="BookCategory">
+		INSERT INTO BookCategorys
+		(Number, Name, BorrowableDays, FinesAmount)
+		VALUES
+		(#{number}, #{name},
+		#{borrowableDays}, #{finesAmount})
+	</insert>
+
+	<update id="update" parameterType="BookCategory">
+		UPDATE BookCategorys SET
+		Number =
+		#{number}, Name = #{name}, BorrowableDays = #{borrowableDays},
+		FinesAmount = #{finesAmount}
+		WHERE Id =
+		#{id}
+	</update>
+
+	<delete id="delete" parameterType="_int">
+		DELETE FROM BookCategorys WHERE
+		Id
+		= #{id}
+	</delete>
+
+	<select id="get" parameterType="_int" resultType="BookCategory">
+		SELECT * FROM
+		BookCategorys WHERE Id = #{id}
+	</select>
+
+	<select id="select" parameterType="BookCategory"
+		resultType="Operator">
+		SELECT * FROM BookCategorys WHERE Number = #{number} AND Id
+		!= #{id}
+	</select>
+
+	<select id="getAll" resultType="BookCategory">
+		<bind name="start" value="(page.pageNo-1)*page.pageSize" />
+		SELECT * FROM BookCategorys
+		<where>
+			<if test="name!=null and name!=''">
+				AND Name LIKE "%"#{name}"%"
+			</if>
+			<if test="number!=null and number!=''">
+				AND Number LIKE "%"#{number}"%"
+			</if>
+		</where>
+		<if test="page.pageNo > 0 and page.pageSize > 0">
+			LIMIT #{start}, #{page.pageSize}
+		</if>
+	</select>
+
+	<select id="count" resultType="int">
+		SELECT COUNT(*) FROM BookCategorys
+		<where>
+			<if test="name!=null and name!=''">
+				AND Name LIKE "%"#{name}"%"
+			</if>
+			<if test="number!=null and number!=''">
+				AND Number LIKE "%"#{number}"%"
+			</if>
+		</where>
+	</select>
+</mapper>
+
