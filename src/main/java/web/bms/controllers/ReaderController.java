@@ -86,6 +86,12 @@ public class ReaderController extends ControllerBase {
 			return Error("编号已存在");
 		}
 
+		Reader dbData = readerService.get(reader.getId());
+
+		if (dbData == null) {
+			return Error("数据不存在");
+		}
+
 		readerService.update(reader);
 		return Success();
 	}

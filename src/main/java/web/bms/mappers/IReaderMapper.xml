@@ -25,7 +25,8 @@
 	</update>
 
 	<delete id="delete" parameterType="_int">
-		DELETE FROM Readers WHERE
+		DELETE FROM Readers
+		WHERE
 		Id =
 		#{id}
 	</delete>
@@ -40,8 +41,8 @@
 		FROM
 		Readers WHERE (Number = #{number} or
 		IdNumber = #{idNumber})
-		AND Id
-		!= #{id}
+		AND
+		Id != #{id}
 	</select>
 
 	<select id="getAll" resultType="Reader">

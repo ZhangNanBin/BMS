@@ -11,6 +11,8 @@ public interface IBookCategoryService {
 	public int count(String number, String name);
 
 	public BookCategory get(int id);
+	
+	public BookCategory get(String number);
 
 	public BookCategory select(BookCategory bookCategory);
 

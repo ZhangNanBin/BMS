@@ -14,6 +14,8 @@ public interface IBookCategoryMapper {
 	public int count(@Param("number") String number, @Param("name") String name);
 
 	public BookCategory get(int id);
+	
+	public BookCategory getByNumber(String number);
 
 	public BookCategory select(BookCategory bookCategory);
 
@@ -22,5 +24,4 @@ public interface IBookCategoryMapper {
 	public void update(BookCategory bookCategory);
 
 	public void delete(int id);
-
 }

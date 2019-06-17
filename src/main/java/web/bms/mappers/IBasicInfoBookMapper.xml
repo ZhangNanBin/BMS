@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="web.bms.mappers.IBasicInfoBookMapper">
+	<insert id="create" parameterType="BasicInfoBook">
+		INSERT INTO BasicInfoBooks
+		(Number, CategoryNumber, Name, Author, Translator, Press, Price,
+		PublicationTime,Total,Surplus)
+		VALUES
+		(#{number}, #{categoryNumber},
+		#{name},#{author},
+		#{translator}, #{press}, #{price},
+		#{publicationTime},#{total},#{surplus})
+	</insert>
+
+	<update id="update" parameterType="BasicInfoBook">
+		UPDATE BasicInfoBooks SET
+		Number = #{number}, CategoryNumber = #{categoryNumber}, Name =
+		#{name}, Author = #{author}, Translator = #{translator}, Press =
+		#{press}, Price = #{price}, PublicationTime = #{publicationTime},
+		Total = #{total}, Surplus = #{surplus}
+		WHERE
+		Id = #{id}
+	</update>
+
+	<update id="updateTotal" parameterType="BasicInfoBook">
+		UPDATE BasicInfoBooks SET
+		Total = Total + 1, Surplus = Surplus + 1
+		WHERE
+		Number = #{number}
+	</update>
+
+
+	<update id="updateSurplus" parameterType="BasicInfoBook">
+		UPDATE BasicInfoBooks
+		SET Surplus = Surplus + (#{quantity})
+		WHERE
+		Number = #{number}
+	</update>
+
+
+	<delete id="delete" parameterType="_int">
+		DELETE FROM BasicInfoBooks
+		WHERE
+		Id = #{id}
+	</delete>
+
+	<select id="get" parameterType="_int" resultType="BasicInfoBook">
+		SELECT * FROM
+		BasicInfoBooks
+		WHERE Id = #{id}
+	</select>
+
+	<select id="getByNumber" parameterType="String" resultType="BasicInfoBook">
+		SELECT * FROM
+		BasicInfoBooks
+		WHERE Number = #{number}
+	</select>
+
+	<select id="select" parameterType="BasicInfoBook"
+		resultType="BasicInfoBook">
+		SELECT * FROM BasicInfoBooks WHERE Number = #{number} AND
+		Id != #{id}
+	</select>
+
+	<select id="getAll" resultType="BasicInfoBook">
+		<bind name="start" value="(page.pageNo-1)*page.pageSize" />
+		SELECT * FROM BasicInfoBooks
+		<where>
+			<if test="name!=null and name!=''">
+				AND Name LIKE "%"#{name}"%"
+			</if>
+			<if test="number!=null and number!=''">
+				AND Number LIKE "%"#{number}"%"
+			</if>
+			<if test="categoryNumber!=null and categoryNumber!=''">
+				AND CategoryNumber LIKE "%"#{categoryNumber}"%"
+			</if>
+		</where>
+		<if test="page.pageNo > 0 and page.pageSize > 0">
+			LIMIT #{start}, #{page.pageSize}
+		</if>
+	</select>
+
+	<select id="count" resultType="int">
+		SELECT COUNT(*) FROM BasicInfoBooks
+		<where>
+			<if test="name!=null and name!=''">
+				AND Name LIKE "%"#{name}"%"
+			</if>
+			<if test="number!=null and number!=''">
+				AND Number LIKE "%"#{number}"%"
+			</if>
+			<if test="categoryNumber!=null and categoryNumber!=''">
+				AND CategoryNumber LIKE "%"#{categoryNumber}"%"
+			</if>
+		</where>
+	</select>
+</mapper>

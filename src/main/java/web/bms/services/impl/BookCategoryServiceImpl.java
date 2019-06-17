@@ -33,6 +33,11 @@ public class BookCategoryServiceImpl implements IBookCategoryService{
 	public BookCategory get(int id) {
 		return bookCategoryMapper.get(id);
 	}
+	
+	@Override
+	public BookCategory get(String number) {
+		return bookCategoryMapper.getByNumber(number);
+	}
 
 	@Override
 	public BookCategory select(BookCategory reader) {

@@ -21,7 +21,7 @@
 		table.render({
 			elem : '#demo',
 			method : "post",
-			url : '../BookCategory/getAll',//数据接口
+			url : '../BasicInfoBook/getAll',//数据接口
 			page : true, //开启分页
 			request : {
 				pageName : 'pageNo',//页码的参数名称
@@ -52,12 +52,11 @@
 		$('#sender').click(function() {
 			$.ajax({
 				type : "post",
-				url : "/bms/BookCategory/create",
+				url : "/bms/BasicInfoBook/create",
 				data : JSON.stringify({
-					name : "test",
-					number : "AB",
-					borrowableDays : 20,
-					finesAmount : 0.5
+					name : "zhang",
+					number : "A0002",
+					categoryNumber : "A"
 				}),
 				dataType : "json",
 				contentType : "application/json;charset=UTF-8",
@@ -96,10 +95,7 @@
 			// get和delete采用
 			$.ajax({
 				type : "post",
-				data : {
-					id : 2
-				},
-				url : "/bms/BookCategory/delete",
+				url : "/bms/BasicInfoBook/test",
 				success : function(result) {
 					var re = JSON.parse(result);
 					var sex = re.data.sex;

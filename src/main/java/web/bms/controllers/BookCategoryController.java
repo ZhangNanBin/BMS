@@ -69,7 +69,13 @@ public class BookCategoryController extends ControllerBase {
 		if (!Helper.isNullOrEmpty(valid)) {
 			return valid;
 		}
+		
+		BookCategory dbData = bookCategoryService.get(bookCategory.getId());
 
+		if (dbData == null) {
+			return Error("数据不存在");
+		}
+		
 		bookCategoryService.update(bookCategory);
 		return Success();
 	}
@@ -97,6 +103,11 @@ public class BookCategoryController extends ControllerBase {
 		if (bookCategory.getFinesAmount() <= 0) {
 			return Error("罚款金额不合法");
 		}
+		
+		if (bookCategoryService.select(bookCategory)!=null) {
+			return Error("编号已存在");
+		}
+
 		return null;
 	}
 }

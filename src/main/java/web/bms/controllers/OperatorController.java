@@ -78,6 +78,12 @@ public class OperatorController extends ControllerBase {
 		if (operatorService.select(operator) != null) {
 			return Error("编号已存在");
 		}
+		
+		Operator dbData = operatorService.get(operator.getId());
+
+		if (dbData == null) {
+			return Error("数据不存在");
+		}
 
 		operatorService.update(operator);
 		return Success();

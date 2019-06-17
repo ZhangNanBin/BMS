@@ -21,9 +21,9 @@
 	</update>
 
 	<delete id="delete" parameterType="_int">
-		DELETE FROM Operators WHERE
-		Id
-		= #{id}
+		DELETE FROM Operators
+		WHERE
+		Id = #{id}
 	</delete>
 
 	<select id="get" parameterType="_int" resultType="Operator">
@@ -36,7 +36,8 @@
 		SELECT *
 		FROM
 		Operators WHERE (Number = #{number} or
-		IdNumber = #{idNumber})
+		IdNumber
+		= #{idNumber})
 		AND Id != #{id}
 	</select>
 

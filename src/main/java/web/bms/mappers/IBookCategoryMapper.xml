@@ -17,24 +17,30 @@
 		Number =
 		#{number}, Name = #{name}, BorrowableDays = #{borrowableDays},
 		FinesAmount = #{finesAmount}
-		WHERE Id =
-		#{id}
+		WHERE Id = #{id}
 	</update>
 
 	<delete id="delete" parameterType="_int">
-		DELETE FROM BookCategorys WHERE
-		Id
-		= #{id}
+		DELETE FROM BookCategorys
+		WHERE
+		Id = #{id}
 	</delete>
 
 	<select id="get" parameterType="_int" resultType="BookCategory">
 		SELECT * FROM
 		BookCategorys WHERE Id = #{id}
 	</select>
+	
+	<select id="getByNumber" parameterType="String" resultType="BookCategory">
+		SELECT * FROM
+		BookCategorys
+		WHERE Number = #{number}
+	</select>
 
 	<select id="select" parameterType="BookCategory"
-		resultType="Operator">
-		SELECT * FROM BookCategorys WHERE Number = #{number} AND Id
+		resultType="BookCategory">
+		SELECT * FROM BookCategorys WHERE Number = #{number} AND
+		Id
 		!= #{id}
 	</select>
 
