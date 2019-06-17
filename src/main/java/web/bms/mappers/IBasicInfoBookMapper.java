@@ -28,5 +28,5 @@ public interface IBasicInfoBookMapper {
 	
 	public void updateTotal(String number);
 	
-	public void updateSurplus(@Param("number") String number,@Param("quantity") int quantity);
+	public void updateBorrowed(@Param("number") String number,@Param("quantity") int quantity);
 }

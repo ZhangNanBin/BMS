@@ -66,7 +66,7 @@ public class BasicInfoBookServiceImpl implements IBasicInfoBookService {
 	}
 
 	@Override
-	public void updateSurplus(String number, int quantity) {
-		basicInfoBookMapper.updateSurplus(number, quantity);
+	public void updateBorrowed(String number, int quantity) {
+		basicInfoBookMapper.updateBorrowed(number, quantity);
 	}
 }

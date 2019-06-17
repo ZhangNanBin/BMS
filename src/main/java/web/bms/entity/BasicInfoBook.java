@@ -13,7 +13,7 @@ public class BasicInfoBook {
 	private double price;
 	private Date publicationTime;
 	private int total;
-	private int surplus;
+	private int borrowed;
 
 	public int getId() {
 		return id;
@@ -95,11 +95,11 @@ public class BasicInfoBook {
 		this.total = total;
 	}
 
-	public int getSurplus() {
-		return surplus;
+	public int getBorrowed() {
+		return borrowed;
 	}
 
-	public void setSurplus(int surplus) {
-		this.surplus = surplus;
+	public void setBorrowed(int borrowed) {
+		this.borrowed = borrowed;
 	}
 }

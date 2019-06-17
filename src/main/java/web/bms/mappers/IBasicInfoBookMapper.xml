@@ -7,12 +7,12 @@
 	<insert id="create" parameterType="BasicInfoBook">
 		INSERT INTO BasicInfoBooks
 		(Number, CategoryNumber, Name, Author, Translator, Press, Price,
-		PublicationTime,Total,Surplus)
+		PublicationTime,Total,Borrowed)
 		VALUES
 		(#{number}, #{categoryNumber},
 		#{name},#{author},
 		#{translator}, #{press}, #{price},
-		#{publicationTime},#{total},#{surplus})
+		#{publicationTime},#{total},#{borrowed})
 	</insert>
 
 	<update id="update" parameterType="BasicInfoBook">
@@ -20,22 +20,22 @@
 		Number = #{number}, CategoryNumber = #{categoryNumber}, Name =
 		#{name}, Author = #{author}, Translator = #{translator}, Press =
 		#{press}, Price = #{price}, PublicationTime = #{publicationTime},
-		Total = #{total}, Surplus = #{surplus}
+		Total = #{total}, Borrowed = #{borrowed}
 		WHERE
 		Id = #{id}
 	</update>
 
 	<update id="updateTotal" parameterType="BasicInfoBook">
 		UPDATE BasicInfoBooks SET
-		Total = Total + 1, Surplus = Surplus + 1
+		Total = Total + 1
 		WHERE
 		Number = #{number}
 	</update>
 
 
-	<update id="updateSurplus" parameterType="BasicInfoBook">
+	<update id="updateBorrowed" parameterType="BasicInfoBook">
 		UPDATE BasicInfoBooks
-		SET Surplus = Surplus + (#{quantity})
+		SET Borrowed = Borrowed + (#{quantity})
 		WHERE
 		Number = #{number}
 	</update>

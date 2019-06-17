@@ -24,5 +24,5 @@ public interface IBasicInfoBookService {
 	
 	public void updateTotal(String number);
 	
-	public void updateSurplus(String number,int quantity);
+	public void updateBorrowed(String number,int quantity);
 }
