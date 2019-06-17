@@ -18,11 +18,15 @@ import web.bms.utility.Page;
 @Controller
 @RequestMapping("Operator")
 public class OperatorController extends ControllerBase {
+	private IOperatorService operatorService;
+
 	@Autowired
-	IOperatorService operatorService;
+	public OperatorController(IOperatorService operatorService) {
+		this.operatorService = operatorService;
+	}
 
 	@ResponseBody
-	@RequestMapping("/getAll")
+	@RequestMapping("getAll")
 	public String getAll(String number, String name, int pageNo, int pageSize) {
 		Page page = new Page(pageNo, pageSize);
 		List<Operator> operators = operatorService.getAll(page, number, name);
@@ -31,8 +35,8 @@ public class OperatorController extends ControllerBase {
 	}
 
 	@ResponseBody
-	@RequestMapping("/get")
-	public String get(@RequestParam(value = "id", required = true) int id) {
+	@RequestMapping("get")
+	public String get(@RequestParam("id") int id) {
 		if (id <= 0) {
 			return Error("Id不合法");
 		}
@@ -42,22 +46,12 @@ public class OperatorController extends ControllerBase {
 	}
 
 	@ResponseBody
-	@RequestMapping("/create")
+	@RequestMapping("create")
 	public String create(@RequestBody Operator operator) {
-		if (Helper.isNullOrEmpty(operator.getIdNumber())) {
-			return Error("编号不能为空");
-		}
-		
-		if (Helper.isNullOrEmpty(operator.getIdNumber())) {
-			return Error("身份证号不能为空");
-		}
+		String valid = userValid(operator);
 
-		if (Helper.isNullOrEmpty(operator.getName())) {
-			return Error("姓名不能为空");
-		}
-
-		if (Helper.isNullOrEmpty(operator.getPassWord())) {
-			return Error("密码不能为空");
+		if (!Helper.isNullOrEmpty(valid)) {
+			return valid;
 		}
 
 		if (operatorService.select(operator) != null) {
@@ -69,26 +63,16 @@ public class OperatorController extends ControllerBase {
 	}
 
 	@ResponseBody
-	@RequestMapping("/update")
+	@RequestMapping("update")
 	public String update(@RequestBody Operator operator) {
 		if (operator.getId() <= 0) {
 			return Error("Id不合法");
 		}
 
-		if (Helper.isNullOrEmpty(operator.getIdNumber())) {
-			return Error("编号不能为空");
-		}
+		String valid = userValid(operator);
 
-		if (Helper.isNullOrEmpty(operator.getIdNumber())) {
-			return Error("身份证号不能为空");
-		}
-
-		if (Helper.isNullOrEmpty(operator.getName())) {
-			return Error("姓名不能为空");
-		}
-
-		if (Helper.isNullOrEmpty(operator.getPassWord())) {
-			return Error("密码不能为空");
+		if (!Helper.isNullOrEmpty(valid)) {
+			return valid;
 		}
 
 		if (operatorService.select(operator) != null) {
@@ -98,12 +82,11 @@ public class OperatorController extends ControllerBase {
 		operatorService.update(operator);
 		return Success();
 	}
-	
+
 	@ResponseBody
-	@RequestMapping("/delete")
-	public String delete(@RequestBody int id) {
+	@RequestMapping("delete")
+	public String delete(@RequestParam("id") int id) {
 		operatorService.delete(id);
 		return Success();
 	}
-	
 }

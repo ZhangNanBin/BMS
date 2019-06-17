@@ -6,7 +6,6 @@ import web.bms.entity.Operator;
 import web.bms.utility.Page;
 
 public interface IOperatorService {
-	
 	List<Operator> getAll();
 	
 	int count();

@@ -17,26 +17,26 @@
 		#{number}, Name = #{name}, Sex = #{sex}, Age = #{age}, IdNumber =
 		#{idNumber}, WorkDate = #{workDate}, Telephone = #{telephone}, IsAdmin
 		= #{isAdmin},PassWord = #{passWord}
-		WHERE Id=#{id}
+		WHERE Id = #{id}
 	</update>
 
 	<delete id="delete" parameterType="_int">
 		DELETE FROM Operators WHERE
-		Id= #{id}
+		Id
+		= #{id}
 	</delete>
 
 	<select id="get" parameterType="_int" resultType="Operator">
 		SELECT * FROM
-		Operators WHERE Id= #{id}
+		Operators WHERE Id = #{id}
 	</select>
 
 	<select id="select" parameterType="Operator"
 		resultType="Operator">
 		SELECT *
 		FROM
-		Operators WHERE (Number = #{number} or IdNumber
-		=
-		#{idNumber})
+		Operators WHERE (Number = #{number} or
+		IdNumber = #{idNumber})
 		AND Id != #{id}
 	</select>
 

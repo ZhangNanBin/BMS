@@ -12,8 +12,12 @@ import web.bms.utility.Page;
 
 @Service
 public class OperatorServiceImpl implements IOperatorService {
+	private IOperatorMapper operatorMapper;
+	
 	@Autowired
-	IOperatorMapper operatorMapper;
+	public OperatorServiceImpl(IOperatorMapper operatorMapper) {
+		this.operatorMapper = operatorMapper;
+	}
 
 	@Override
 	public List<Operator> getAll() {

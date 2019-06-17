@@ -3,12 +3,12 @@ package web.bms.utility;
 public class Success {
 	private int code = 0; // 设置成功代码
 	private int count;
-	private Object data;
-	
+	private Object data = null;
+
 	public Success() {
-		
+
 	}
-	
+
 	public Success(Object data) {
 		this.setData(data);
 	}
@@ -33,7 +33,6 @@ public class Success {
 	public void setCount(int count) {
 		this.count = count;
 	}
-	
 
 	public Object getData() {
 		return data;

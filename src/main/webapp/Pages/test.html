@@ -9,6 +9,7 @@
 <body>
 	<table id="demo" lay-filter="test"></table>
 	<input type="button" value="通过AJAX获取一个Hero对象---" id="sender">
+	<input type="button" value="通过AJAX获取一个Hero对象---" id="test">
 </body>
 <script type="text/javascript" src="../LayUI/layui.js"></script>
 <script>
@@ -20,7 +21,7 @@
 		table.render({
 			elem : '#demo',
 			method : "post",
-			url : '/BMS/Operator/getAll',//数据接口
+			url : '../Reader/getAll',//数据接口
 			page : true, //开启分页
 			request : {
 				pageName : 'pageNo',//页码的参数名称
@@ -49,34 +50,58 @@
 		});
 
 		$('#sender').click(function() {
-			// update和create 接口采用JSON数据进行提交
-			$.ajax({
-				type : "post",
-				url : "/BMS/Operator/update",
-				data : JSON.stringify({
-					id : 13, // create时没有Id
-					name : "zhang",
-					number : "zhang",
-					idNumber : "zhang",
-					passWord : "zhangyang"
-				}),
-				dataType : "json",
-				contentType : "application/json;charset=UTF-8",
-				success : function(result) {
-				},
-				error : function(err) {
+// 			$.ajax({
+// 				type : "post",
+// 				url : "/bms/Reader/create",
+// 				data : JSON.stringify({
+// 					name : "张南彬",
+// 					number : "20164089142",
+// 					idNumber : "522568465564442",
+// 					passWord : "zhangyang",
+// 					maxNumber : 120,
+// 					age : 20
+// 				}),
+// 				dataType : "json",
+// 				contentType : "application/json;charset=UTF-8",
+// 				success : function(result) {
+// 				},
+// 				error : function(err) {
 
-				}
-			});
+// 				}
+// 			});
 
+			// get和delete采用
+								$.ajax({
+									type : "post",
+									url : "../Security/login",
+									data : {
+										number:"20164089145",
+										passWord:"zhangyang",
+										userType:1
+									},
+									success : function(result) {
+										var re = JSON.parse(result);
+										sessionStorage.setItem('userInfo', JSON
+												.stringify(re.data));
+										var userJsonStr = sessionStorage
+												.getItem('userInfo');
+										var userEntity = JSON.parse(userJsonStr);
+
+									},
+									error : function(err) {
+
+									}
+								});
+		});
+
+		$('#test').click(function() {
 			// get和delete采用
 			$.ajax({
 				type : "post",
-				url : "/BMS/Operator/get",
-				data : {
-					id : 13
-				},
+				url : "/bms/Security/getSession",
 				success : function(result) {
+					var re = JSON.parse(result);
+					var sex = re.data.sex;
 				},
 				error : function(err) {
 

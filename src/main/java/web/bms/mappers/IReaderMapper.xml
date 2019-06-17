@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="web.bms.mappers.IReaderMapper">
+	<insert id="create" parameterType="Reader">
+		INSERT INTO Readers (
+		Number,Name,Sex,Age,Telephone,IdType,IdNumber,Deposit,
+		Birthday,Occupation,CertificationDate,MaxNumber,PassWord)
+		VALUES (
+		#{number},#{name},#{sex},#{age},#{telephone},#{idType},#{idNumber},#{deposit},
+		#{birthday},#{occupation},#{certificationDate},#{maxNumber},#{passWord}
+		)
+	</insert>
+
+	<update id="update" parameterType="Reader">
+		UPDATE Readers SET Number =
+		#{number},Name = #{name},Sex = #{sex},Age = #{age},Telephone =
+		#{telephone},IdType = #{idType},IdNumber = #{idNumber},Deposit =
+		#{deposit},Birthday = #{birthday},Occupation =
+		#{occupation},CertificationDate = #{certificationDate},MaxNumber =
+		#{maxNumber},PassWord = #{passWord}
+		WHERE Id = #{id}
+	</update>
+
+	<delete id="delete" parameterType="_int">
+		DELETE FROM Readers WHERE
+		Id =
+		#{id}
+	</delete>
+
+	<select id="get" parameterType="_int" resultType="Reader">
+		SELECT * FROM
+		Readers WHERE Id = #{id}
+	</select>
+
+	<select id="select" parameterType="Reader" resultType="Reader">
+		SELECT *
+		FROM
+		Readers WHERE (Number = #{number} or
+		IdNumber = #{idNumber})
+		AND Id
+		!= #{id}
+	</select>
+
+	<select id="getAll" resultType="Reader">
+		<bind name="start" value="(page.pageNo-1)*page.pageSize" />
+		SELECT * FROM Readers
+		<where>
+			<if test="name!=null and name!=''">
+				AND Name LIKE "%"#{name}"%"
+			</if>
+			<if test="number!=null and number!=''">
+				AND Number LIKE "%"#{number}"%"
+			</if>
+		</where>
+		<if test="page.pageNo > 0 and page.pageSize > 0">
+			LIMIT #{start}, #{page.pageSize}
+		</if>
+	</select>
+
+	<select id="count" resultType="int">
+		SELECT COUNT(*) FROM Readers
+		<where>
+			<if test="name!=null and name!=''">
+				AND Name LIKE "%"#{name}"%"
+			</if>
+			<if test="number!=null and number!=''">
+				AND Number LIKE "%"#{number}"%"
+			</if>
+		</where>
+	</select>
+</mapper>
+
