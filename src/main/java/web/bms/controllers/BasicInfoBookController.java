@@ -65,7 +65,7 @@ public class BasicInfoBookController extends ControllerBase {
 	@ResponseBody
 	@RequestMapping("update")
 	public Map<String, Object> update(@RequestBody BasicInfoBook basicInfoBook) {
-		if (basicInfoBook.getId() <= 0) {
+		if (basicInfoBook.getId() == null || basicInfoBook.getId() <= 0) {
 			return Error("Id不合法");
 		}
 
@@ -88,6 +88,16 @@ public class BasicInfoBookController extends ControllerBase {
 	@ResponseBody
 	@RequestMapping("delete")
 	public Map<String, Object> delete(@RequestParam("id") int id) {
+		if (id <= 0) {
+			return Error("Id不合法");
+		}
+
+		BasicInfoBook dbData = basicInfoBookService.get(id);
+
+		if (dbData == null) {
+			return Error("数据不存在");
+		}
+
 		basicInfoBookService.delete(id);
 		return Success();
 	}

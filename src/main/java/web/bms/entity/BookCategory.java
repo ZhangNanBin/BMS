@@ -1,17 +1,17 @@
 package web.bms.entity;
 
 public class BookCategory {
-	private int id;
+	private Integer id;
 	private String number;
 	private String name;
 	private int borrowableDays; // 可借天数
 	private double finesAmount; // 罚款金额
 
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

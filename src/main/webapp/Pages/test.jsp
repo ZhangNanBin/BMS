@@ -22,7 +22,7 @@
 		table.render({
 			elem : '#demo',
 			method : "post",
-			url : '../BasicInfoBook/getAll',//数据接口
+			url : '../Book/getAll',//数据接口
 			page : true, //开启分页
 			request : {
 				pageName : 'pageNo',//页码的参数名称
@@ -53,9 +53,10 @@
 		$('#sender').click(function() {
 			$.ajax({
 				type : "post",
-				url : "/bms/BasicInfoBook/create",
+				url : "/bms/BasicInfoBook/update",
 				data : JSON.stringify({
-					name : "zhang",
+					id:6,
+					name : "zhaDASDg",
 					number : "A0002",
 					categoryNumber : "A"
 				}),
@@ -96,10 +97,13 @@
 			// get和delete采用
 			$.ajax({
 				type : "post",
-				url : "/bms/BasicInfoBook/test",
+				url : "/bms/Book/get",
+				data : {
+					id : 1
+				},
 				success : function(result) {
-					var re = JSON.parse(result);
-					var sex = re.data.sex;
+					var ds = result.code;
+					var sex = result.data;
 				},
 				error : function(err) {
 

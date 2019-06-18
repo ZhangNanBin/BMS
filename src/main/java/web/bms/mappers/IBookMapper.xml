@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="web.bms.mappers.IBookMapper">
+	<insert id="create" parameterType="Book">
+		INSERT INTO Books
+		(Barcode,BasicNumber,State)
+		VALUES (#{barcode},#{basicNumber},#{state})
+	</insert>
+
+	<update id="update" parameterType="Book">
+		UPDATE Books
+		SET Barcode
+		=#{barcode}, BasicNumber = #{basicNumber}, State = #{state}
+		WHERE Id = #{id}
+	</update>
+
+	<update id="updateState">
+		UPDATE Books
+		SET
+		State =
+		#{state}
+		WHERE Barcode = #{barcode}
+	</update>
+
+	<delete id="delete" parameterType="_int">
+		DELETE FROM Books
+		WHERE
+		Id = #{id}
+	</delete>
+
+	<select id="get" parameterType="_int" resultType="Book">
+		SELECT * FROM
+		Books WHERE Id = #{id}
+	</select>
+
+	<select id="select" parameterType="Book" resultType="Book">
+		SELECT *
+		FROM
+		Books WHERE (Barcode = #{barcode}
+		<if test="id != null and id > 0">
+			AND Id != #{id}
+		</if>
+	</select>
+
+	<select id="getAll" resultType="Book">
+		<bind name="start" value="(page.pageNo-1)*page.pageSize" />
+		SELECT * FROM Books
+		<where>
+			<if test="barcode!=null and barcode!=''">
+				AND Barcode LIKE "%"#{barcode}"%"
+			</if>
+			<if test="basicNumber!=null and basicNumber!=''">
+				AND BasicNumber LIKE "%"#{basicNumber}"%"
+			</if>
+			<if test="state!=null and state!=''">
+				AND State = #{state}
+			</if>
+		</where>
+		<if test="page.pageNo > 0 and page.pageSize > 0">
+			LIMIT #{start}, #{page.pageSize}
+		</if>
+	</select>
+
+	<select id="count" resultType="int">
+		SELECT COUNT(*) FROM Books
+		<where>
+			<if test="barcode!=null and barcode!=''">
+				AND Barcode LIKE "%"#{barcode}"%"
+			</if>
+			<if test="basicNumber!=null and basicNumber!=''">
+				AND BasicNumber LIKE "%"#{basicNumber}"%"
+			</if>
+			<if test="state!=null and state!=''">
+				AND State = #{state}
+			</if>
+		</where>
+	</select>
+</mapper>
+

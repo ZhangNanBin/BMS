@@ -36,9 +36,10 @@
 		SELECT *
 		FROM
 		Operators WHERE (Number = #{number} or
-		IdNumber
-		= #{idNumber})
-		AND Id != #{id}
+		IdNumber = #{idNumber})
+		<if test="id != null and id > 0">
+			AND Id != #{id}
+		</if>
 	</select>
 
 	<select id="getAll" resultType="Operator">
@@ -50,6 +51,9 @@
 			</if>
 			<if test="number!=null and number!=''">
 				AND Number LIKE "%"#{number}"%"
+			</if>
+			<if test="isAdmin!=null">
+				AND IsAdmin LIKE "%"#{isAdmin}"%"
 			</if>
 		</where>
 		<if test="page.pageNo > 0 and page.pageSize > 0">
@@ -65,6 +69,9 @@
 			</if>
 			<if test="number!=null and number!=''">
 				AND Number LIKE "%"#{number}"%"
+			</if>
+			<if test="isAdmin!=null">
+				AND IsAdmin LIKE "%"#{isAdmin}"%"
 			</if>
 		</where>
 	</select>

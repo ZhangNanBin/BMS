@@ -14,10 +14,10 @@ public interface IBookCategoryMapper {
 	public int count(@Param("number") String number, @Param("name") String name);
 
 	public BookCategory get(int id);
-	
+
 	public BookCategory getByNumber(String number);
 
-	public BookCategory select(BookCategory bookCategory);
+	public BookCategory select(BookCategory bookCategory); // 查找出自己Id以外数据(按number筛选)
 
 	public int create(BookCategory bookCategory);
 

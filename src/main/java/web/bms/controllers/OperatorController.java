@@ -27,10 +27,10 @@ public class OperatorController extends ControllerBase {
 
 	@ResponseBody
 	@RequestMapping("getAll")
-	public Map<String, Object> getAll(String number, String name, int pageNo, int pageSize) {
+	public Map<String, Object> getAll(String number, String name, Boolean isAdmin, int pageNo, int pageSize) {
 		Page page = new Page(pageNo, pageSize);
-		List<Operator> operators = operatorService.getAll(page, number, name);
-		int count = operatorService.count(number, name);
+		List<Operator> operators = operatorService.getAll(page, number, name, isAdmin);
+		int count = operatorService.count(number, name, isAdmin);
 		return Success(operators, count);
 	}
 
@@ -65,7 +65,7 @@ public class OperatorController extends ControllerBase {
 	@ResponseBody
 	@RequestMapping("update")
 	public Map<String, Object> update(@RequestBody Operator operator) {
-		if (operator.getId() <= 0) {
+		if (operator.getId() == null || operator.getId() <= 0) {
 			return Error("Id不合法");
 		}
 
@@ -78,7 +78,7 @@ public class OperatorController extends ControllerBase {
 		if (operatorService.select(operator) != null) {
 			return Error("编号已存在");
 		}
-		
+
 		Operator dbData = operatorService.get(operator.getId());
 
 		if (dbData == null) {
@@ -92,6 +92,16 @@ public class OperatorController extends ControllerBase {
 	@ResponseBody
 	@RequestMapping("delete")
 	public Map<String, Object> delete(@RequestParam("id") int id) {
+		if (id <= 0) {
+			return Error("Id不合法");
+		}
+
+		Operator dbData = operatorService.get(id);
+
+		if (dbData == null) {
+			return Error("数据不存在");
+		}
+
 		operatorService.delete(id);
 		return Success();
 	}

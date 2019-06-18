@@ -14,7 +14,7 @@ public interface IReaderMapper {
 
 	public Reader get(int id);
 
-	public Reader select(Reader reader);
+	public Reader select(Reader reader); // 查找出自己Id以外数据(按number、idNumber筛选)
 
 	public int create(Reader reader);
 

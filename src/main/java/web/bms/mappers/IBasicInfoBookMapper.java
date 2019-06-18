@@ -18,7 +18,7 @@ public interface IBasicInfoBookMapper {
 
 	public BasicInfoBook getByNumber(String number);
 
-	public BasicInfoBook select(BasicInfoBook basicInfoBook);
+	public BasicInfoBook select(BasicInfoBook basicInfoBook); // 查找出自己Id以外数据(按number筛选)
 
 	public int create(BasicInfoBook basicInfoBook);
 

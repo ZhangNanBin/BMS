@@ -24,7 +24,7 @@ public class MybatisTest {
 	@Test
 	public void testList() {
 		Page page = new Page(1, 10);
-		List<Operator> cs = operatorMapper.getAll(page, null, null);
+		List<Operator> cs = operatorMapper.getAll(page, null, null,null);
 		System.out.println(cs.getClass());
 		for (Operator c : cs) {
 			System.out.println(c.getName());

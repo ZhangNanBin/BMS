@@ -1,7 +1,7 @@
 package web.bms.entity;
 
 public  class User {
-	private int id; // ID
+	private Integer id; // ID
 	private String number; // 编号
 	private String name; // 姓名
 	private String sex; // 性别
@@ -11,11 +11,11 @@ public  class User {
 	private String passWord; // 密码
 	private boolean isAdmin; // 是否为管理员
 	
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

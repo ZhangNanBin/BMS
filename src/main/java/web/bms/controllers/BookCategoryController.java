@@ -61,7 +61,7 @@ public class BookCategoryController extends ControllerBase {
 	@ResponseBody
 	@RequestMapping("update")
 	public Map<String, Object> update(@RequestBody BookCategory bookCategory) {
-		if (bookCategory.getId() <= 0) {
+		if (bookCategory.getId() == null || bookCategory.getId() <= 0) {
 			return Error("Id不合法");
 		}
 
@@ -84,6 +84,16 @@ public class BookCategoryController extends ControllerBase {
 	@ResponseBody
 	@RequestMapping("delete")
 	public Map<String, Object> delete(@RequestParam("id") int id) {
+		if (id <= 0) {
+			return Error("Id不合法");
+		}
+		
+		BookCategory dbData = bookCategoryService.get(id);
+
+		if (dbData == null) {
+			return Error("数据不存在");
+		}
+		
 		bookCategoryService.delete(id);
 		return Success();
 	}

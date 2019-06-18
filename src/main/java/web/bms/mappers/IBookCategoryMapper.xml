@@ -30,8 +30,9 @@
 		SELECT * FROM
 		BookCategorys WHERE Id = #{id}
 	</select>
-	
-	<select id="getByNumber" parameterType="String" resultType="BookCategory">
+
+	<select id="getByNumber" parameterType="String"
+		resultType="BookCategory">
 		SELECT * FROM
 		BookCategorys
 		WHERE Number = #{number}
@@ -39,9 +40,10 @@
 
 	<select id="select" parameterType="BookCategory"
 		resultType="BookCategory">
-		SELECT * FROM BookCategorys WHERE Number = #{number} AND
-		Id
-		!= #{id}
+		SELECT * FROM BookCategorys WHERE Number = #{number}
+		<if test="id != null and id > 0">
+			AND Id != #{id}
+		</if>
 	</select>
 
 	<select id="getAll" resultType="BookCategory">

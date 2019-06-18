@@ -35,7 +35,8 @@
 		(SELECT COUNT(*) FROM Books WHERE Books.BasicNumber =
 		BasicInfoBooks.Number) as Total,
 		(SELECT COUNT(*) FROM Books WHERE
-		Books.BasicNumber = BasicInfoBooks.Number AND State = True) as Borrowed FROM
+		Books.BasicNumber = BasicInfoBooks.Number AND State = True) as
+		Borrowed FROM
 		BasicInfoBooks
 		WHERE Id = #{id}
 	</select>
@@ -49,8 +50,10 @@
 
 	<select id="select" parameterType="BasicInfoBook"
 		resultType="BasicInfoBook">
-		SELECT * FROM BasicInfoBooks WHERE Number = #{number} AND
-		Id != #{id}
+		SELECT * FROM BasicInfoBooks WHERE Number = #{number}
+		<if test="id != null and id > 0">
+			AND Id != #{id}
+		</if>
 	</select>
 
 	<select id="getAll" resultType="BasicInfoBook">

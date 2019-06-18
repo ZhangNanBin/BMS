@@ -68,7 +68,7 @@ public class ReaderController extends ControllerBase {
 	@ResponseBody
 	@RequestMapping("update")
 	public Map<String, Object> update(@RequestBody Reader reader) {
-		if (reader.getId() <= 0) {
+		if (reader.getId() == null || reader.getId() <= 0) {
 			return Error("Id不合法");
 		}
 
@@ -77,7 +77,7 @@ public class ReaderController extends ControllerBase {
 		if (valid != null) {
 			return valid;
 		}
-		
+
 		if (reader.getMaxNumber() <= 0) {
 			return Error("最大借书数量不合法");
 		}
@@ -99,6 +99,15 @@ public class ReaderController extends ControllerBase {
 	@ResponseBody
 	@RequestMapping("delete")
 	public Map<String, Object> delete(@RequestParam("id") int id) {
+		if (id <= 0) {
+			return Error("Id不合法");
+		}
+
+		Reader dbData = readerService.get(id);
+
+		if (dbData == null) {
+			return Error("数据不存在");
+		}
 		readerService.delete(id);
 		return Success();
 	}

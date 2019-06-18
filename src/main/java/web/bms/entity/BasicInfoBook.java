@@ -3,7 +3,7 @@ package web.bms.entity;
 import java.util.Date;
 
 public class BasicInfoBook {
-	private int id;
+	private Integer id;
 	private String number;
 	private String name;
 	private String categoryNumber;
@@ -15,11 +15,11 @@ public class BasicInfoBook {
 	private int total;
 	private int borrowed;
 
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

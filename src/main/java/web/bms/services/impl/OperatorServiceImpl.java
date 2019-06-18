@@ -20,13 +20,13 @@ public class OperatorServiceImpl implements IOperatorService {
 	}
 
 	@Override
-	public List<Operator> getAll(Page page, String number, String name) {
-		return operatorMapper.getAll(page, number, name);
+	public List<Operator> getAll(Page page, String number, String name, Boolean isAdmin) {
+		return operatorMapper.getAll(page, number, name, isAdmin);
 	}
 
 	@Override
-	public int count(String number, String name) {
-		return operatorMapper.count(number, name);
+	public int count(String number, String name, Boolean isAdmin) {
+		return operatorMapper.count(number, name, isAdmin);
 	}
 
 	@Override

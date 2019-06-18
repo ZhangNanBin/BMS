@@ -17,13 +17,15 @@
 
 	<context:annotation-config />
 
+	<!-- 扫描Controller,并将其生命周期纳入Spring管理 -->
 	<context:component-scan
 		base-package="web.bms.controllers">
 		<context:include-filter type="annotation"
 			expression="org.springframework.stereotype.Controller" />
 	</context:component-scan>
 
-	<mvc:annotation-driven><!-- 配置以上两个消息消息转换器解决返回的Json数据中文乱码问题 -->
+	<!-- 配置转换器解决返回的Json数据中文乱码问题 -->
+	<mvc:annotation-driven>
 		<mvc:message-converters>
 			<bean
 				class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
@@ -41,6 +43,7 @@
 		</mvc:message-converters>
 	</mvc:annotation-driven>
 
+	<!-- 静态页面，如html,css,js,images可以访问 -->
 	<mvc:default-servlet-handler />
 
 	<bean
