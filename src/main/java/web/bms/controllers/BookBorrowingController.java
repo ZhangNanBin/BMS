@@ -17,6 +17,7 @@ import web.bms.entity.BasicInfoBook;
 import web.bms.entity.Book;
 import web.bms.entity.BookBorrowing;
 import web.bms.entity.BookCategory;
+import web.bms.entity.FineRecord;
 import web.bms.entity.Reader;
 import web.bms.entity.User;
 import web.bms.services.IBasicInfoBookService;
@@ -148,6 +149,37 @@ public class BookBorrowingController extends ControllerBase {
 
 		bookBorrowingService.sendBack(bookBarcode, new Date(), arrears);
 		bookService.updateState(bookBarcode, false);
+		return Success();
+	}
+
+	@ResponseBody
+	@RequestMapping("getFineRecord")
+	public Map<String, Object> getFineRecord(String readerNumber, String readerName, int pageNo, int pageSize) {
+		Page page = new Page(pageNo, pageSize);
+		List<FineRecord> fineRecords = bookBorrowingService.getFineRecord(page, readerNumber, readerName);
+
+		int count = 0;
+		if (fineRecords.size() > 0) {
+			count = bookBorrowingService.fineCount(readerNumber, readerName);
+		}
+		
+		return Success(fineRecords, count);
+	}
+
+	@ResponseBody
+	@RequestMapping("repayment")
+	public Map<String, Object> repayment(String readerNumber) {
+		if (Helper.isNullOrEmpty(readerNumber)) {
+			return Error("读者编号不能为空");
+		}
+
+		Reader reader = readerService.get(readerNumber);
+
+		if (reader == null) {
+			return Error("该读者不存在");
+		}
+
+		bookBorrowingService.updatePaid(readerNumber);
 		return Success();
 	}
 }

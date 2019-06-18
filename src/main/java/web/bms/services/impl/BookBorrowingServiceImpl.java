@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import web.bms.entity.BookBorrowing;
+import web.bms.entity.FineRecord;
 import web.bms.mappers.IBookBorrowingMapper;
 import web.bms.services.IBookBorrowingService;
 import web.bms.utility.Page;
@@ -49,5 +50,20 @@ public class BookBorrowingServiceImpl implements IBookBorrowingService {
 	@Override
 	public void sendBack(String barcode, Date returnDate, double arrears) {
 		bookBorrowingMapper.sendBack(barcode, returnDate, arrears);
+	}
+
+	@Override
+	public List<FineRecord> getFineRecord(Page page, String readerNumber, String readerName) {
+		return bookBorrowingMapper.getFineRecord(page, readerNumber, readerName);
+	}
+
+	@Override
+	public int fineCount(String readerNumber, String readerName) {
+		return bookBorrowingMapper.fineCount(readerNumber, readerName);
+	}
+
+	@Override
+	public void updatePaid(String readerNumber) {
+		bookBorrowingMapper.updatePaid(readerNumber);
 	}
 }

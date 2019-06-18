@@ -11,7 +11,7 @@ public interface IBasicInfoBookService {
 	public int count(String number, String name, String categoryNumber);
 
 	public BasicInfoBook get(int id);
-	
+
 	public BasicInfoBook get(String number);
 
 	public BasicInfoBook select(BasicInfoBook basicInfoBook);
@@ -20,5 +20,5 @@ public interface IBasicInfoBookService {
 
 	public void update(BasicInfoBook basicInfoBook);
 
-	public void delete(int id);	
+	public void delete(int id);
 }

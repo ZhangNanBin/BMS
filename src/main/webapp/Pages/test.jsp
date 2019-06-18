@@ -25,7 +25,7 @@
 		table.render({
 			elem : '#demo',
 			method : "post",
-			url : '../Book/getAll',//数据接口
+			url : '/bms/BookBorrowing/getFineRecord',//数据接口
 			page : true, //开启分页
 			request : {
 				pageName : 'pageNo',//页码的参数名称
@@ -98,9 +98,9 @@
 			// get和delete采用
 			$.ajax({
 				type : "post",
-				url : "/bms/BookBorrowing/sendBack",
+				url : "/bms/BookBorrowing/repayment",
 				data : {
-					bookBarcode : "A100-01"
+					readerNumber : "20164089145"
 				},
 				success : function(result) {
 					var ds = result.code;

@@ -6,6 +6,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 import web.bms.entity.BookBorrowing;
+import web.bms.entity.FineRecord;
 import web.bms.utility.Page;
 
 public interface IBookBorrowingMapper {
@@ -24,4 +25,11 @@ public interface IBookBorrowingMapper {
 
 	public void sendBack(@Param("bookBarcode") String bookBarcode, @Param("returnDate") Date returnDate,
 			@Param("arrears") double arrears);
+
+	public List<FineRecord> getFineRecord(@Param("page") Page page, @Param("readerNumber") String readerNumber,
+			@Param("readerName") String readerName);
+
+	public int fineCount(@Param("readerNumber") String readerNumber, @Param("readerName") String readerName);
+
+	public void updatePaid(String readerNumber);
 }

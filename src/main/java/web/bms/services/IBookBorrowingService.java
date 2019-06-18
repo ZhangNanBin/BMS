@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import web.bms.entity.BookBorrowing;
+import web.bms.entity.FineRecord;
 import web.bms.utility.Page;
 
 public interface IBookBorrowingService {
@@ -20,4 +21,9 @@ public interface IBookBorrowingService {
 
 	public void sendBack(String barcode, Date returnDate, double arrears);
 
+	public List<FineRecord> getFineRecord(Page page, String readerNumber, String readerName);
+
+	public int fineCount(String readerNumber, String readerName);
+
+	public void updatePaid(String readerNumber);
 }

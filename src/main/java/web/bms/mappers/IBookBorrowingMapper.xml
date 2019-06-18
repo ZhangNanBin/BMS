@@ -4,6 +4,8 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="web.bms.mappers.IBookBorrowingMapper">
+
+	<!-- 借阅归还罚款功能 -->
 	<insert id="create" parameterType="BookBorrowing">
 		INSERT INTO BookBorrowings
 		(BookBarcode,ReaderNumber,BorrowingDate,ReturnDate,OperatorNumber,Arrears,Paid,SendBack)
@@ -15,7 +17,8 @@
 	<update id="sendBack">
 		UPDATE BookBorrowings SET Arrears = #{arrears},
 		SendBack = !SendBack, ReturnDate = #{returnDate}
-		WHERE BookBarcode = #{bookBarcode}
+		WHERE BookBarcode =
+		#{bookBarcode}
 		AND SendBack = False
 	</update>
 
@@ -77,4 +80,48 @@
 			</if>
 		</where>
 	</select>
+
+	<!-- 罚款记录及缴纳欠款 -->
+	<select id="getFineRecord" resultType="FineRecord">
+		<bind name="start" value="(page.pageNo-1)*page.pageSize" />
+		SELECT Readers.Number, Readers.Name, Readers.Telephone,
+		SUM(BookBorrowings.Arrears) as TotalArrears FROM BookBorrowings INNER
+		JOIN
+		Readers ON Readers.Number = BookBorrowings.ReaderNumber WHERE
+		BookBorrowings.Paid = False
+		<if test="readerNumber!=null and readerNumber!=''">
+			AND BookBorrowings.ReaderNumber LIKE
+			"%"#{readerNumber}"%"
+		</if>
+		<if test="readerName!=null and readerName!=''">
+			AND Readers.Name LIKE "%"#{readerName}"%"
+		</if>
+		GROUP BY BookBorrowings.ReaderNumber
+		Having SUM(BookBorrowings.Arrears)
+		> 0
+		<if test="page.pageNo > 0 and page.pageSize > 0">
+			LIMIT #{start}, #{page.pageSize}
+		</if>
+	</select>
+
+	<select id="fineCount" resultType="int">
+		SELECT COUNT(DISTINCT Readers.Number) FROM BookBorrowings INNER JOIN
+		Readers ON Readers.Number = BookBorrowings.ReaderNumber WHERE
+		BookBorrowings.Paid = False
+		<if test="readerNumber!=null and readerNumber!=''">
+			AND BookBorrowings.ReaderNumber LIKE
+			"%"#{readerNumber}"%"
+		</if>
+		<if test="readerName!=null and readerName!=''">
+			AND Readers.Name LIKE "%"#{readerName}"%"
+		</if>
+		GROUP BY BookBorrowings.ReaderNumber
+		Having SUM(BookBorrowings.Arrears)
+		> 0
+	</select>
+
+	<update id="updatePaid" parameterType="String">
+		UPDATE BookBorrowings SET
+		Paid = True WHERE ReaderNumber = #{readerNumber}
+	</update>
 </mapper>
