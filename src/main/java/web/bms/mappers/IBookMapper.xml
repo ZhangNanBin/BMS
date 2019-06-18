@@ -46,7 +46,7 @@
 	<select id="select" parameterType="Book" resultType="Book">
 		SELECT *
 		FROM
-		Books WHERE (Barcode = #{barcode}
+		Books WHERE Barcode = #{barcode}
 		<if test="id != null and id > 0">
 			AND Id != #{id}
 		</if>
