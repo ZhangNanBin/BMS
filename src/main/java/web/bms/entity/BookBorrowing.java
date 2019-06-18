@@ -2,15 +2,14 @@ package web.bms.entity;
 
 import java.util.Date;
 
-import javax.xml.crypto.Data;
-
 public class BookBorrowing {
 	private int id;
-	private String bookBarCodeString;
+	private String bookBarcode;
 	private String readerNumber;
 	private Date borrowingDate;
-	private Data returnDateData;
+	private Date returnDate;
 	private String OperatorNumber;
+	private double arrears;
 	private boolean paid;
 	private boolean sendBack;
 
@@ -22,12 +21,12 @@ public class BookBorrowing {
 		this.id = id;
 	}
 
-	public String getBookBarCodeString() {
-		return bookBarCodeString;
+	public String getBookBarcode() {
+		return bookBarcode;
 	}
 
-	public void setBookBarCodeString(String bookBarCodeString) {
-		this.bookBarCodeString = bookBarCodeString;
+	public void setBookBarcode(String bookBarcode) {
+		this.bookBarcode = bookBarcode;
 	}
 
 	public String getReaderNumber() {
@@ -46,12 +45,12 @@ public class BookBorrowing {
 		this.borrowingDate = borrowingDate;
 	}
 
-	public Data getReturnDateData() {
-		return returnDateData;
+	public Date getReturnDate() {
+		return returnDate;
 	}
 
-	public void setReturnDateData(Data returnDateData) {
-		this.returnDateData = returnDateData;
+	public void setReturnDate(Date returnDate) {
+		this.returnDate = returnDate;
 	}
 
 	public String getOperatorNumber() {
@@ -76,5 +75,13 @@ public class BookBorrowing {
 
 	public void setSendBack(boolean sendBack) {
 		this.sendBack = sendBack;
+	}
+
+	public double getArrears() {
+		return arrears;
+	}
+
+	public void setArrears(double arrears) {
+		this.arrears = arrears;
 	}
 }

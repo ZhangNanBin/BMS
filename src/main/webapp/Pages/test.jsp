@@ -9,8 +9,9 @@
 </head>
 <body>
 	<table id="demo"></table>
-	<input type="button" value="通过AJAX获取一个Hero对象---" id="sender">
-	<input type="button" value="通过AJAX获取一个Hero对象---" id="test">
+	<input type="button" value="借书" id="sender">
+	<input type="button" value="还书" id="test">
+	<input type="button" value="登录" id="login">
 </body>
 <script type="text/javascript" src="../LayUI/layui.js"></script>
 <script>
@@ -18,8 +19,8 @@
 		var table = layui.table;
 		var $ = layui.$;
 		const goblName = "";
-		const hnumber="";
-		
+		const hnumber = "";
+
 		//GetAll接口实例
 		table.render({
 			elem : '#demo',
@@ -31,8 +32,8 @@
 				limitName : 'pageSize' //每页数据量的参数名
 			},
 			where : { // 可使用编号和姓名进行筛选 模糊查找
-				number : $(#name).val,
-				name : $(#name).val
+				number : "",
+				name : ""
 			},
 			cols : [ [ //表头
 			{
@@ -55,12 +56,10 @@
 		$('#sender').click(function() {
 			$.ajax({
 				type : "post",
-				url : "/bms/BasicInfoBook/update",
+				url : "/bms/BookBorrowing/borrowing",
 				data : JSON.stringify({
-					id:6,
-					name : "zhaDASDg",
-					number : "A0002",
-					categoryNumber : "A"
+					bookBarcode : "A100-01",
+					readerNumber : "20164089145"
 				}),
 				dataType : "json",
 				contentType : "application/json;charset=UTF-8",
@@ -99,9 +98,29 @@
 			// get和delete采用
 			$.ajax({
 				type : "post",
-				url : "/bms/Book/get",
+				url : "/bms/BookBorrowing/sendBack",
 				data : {
-					id : 1
+					bookBarcode : "A100-01"
+				},
+				success : function(result) {
+					var ds = result.code;
+					var sex = result.data;
+				},
+				error : function(err) {
+
+				}
+			});
+		});
+
+		$('#login').click(function() {
+			// get和delete采用
+			$.ajax({
+				type : "post",
+				url : "/bms/Security/login",
+				data : {
+					number : "Admin",
+					passWord : "123456",
+					userType : 0
 				},
 				success : function(result) {
 					var ds = result.code;

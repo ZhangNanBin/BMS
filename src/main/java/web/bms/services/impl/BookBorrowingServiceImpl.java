@@ -1,5 +1,6 @@
 package web.bms.services.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,12 +32,22 @@ public class BookBorrowingServiceImpl implements IBookBorrowingService {
 	}
 
 	@Override
+	public void create(BookBorrowing bookBorrowing) {
+		bookBorrowingMapper.create(bookBorrowing);
+	}
+
+	@Override
 	public BookBorrowing get(int id) {
 		return bookBorrowingMapper.get(id);
 	}
 
 	@Override
-	public void create(BookBorrowing bookBorrowing) {
-		bookBorrowingMapper.create(bookBorrowing);
+	public BookBorrowing select(String barcode, boolean sendBack) {
+		return bookBorrowingMapper.select(barcode, sendBack);
+	}
+
+	@Override
+	public void sendBack(String barcode, Date returnDate, double arrears) {
+		bookBorrowingMapper.sendBack(barcode, returnDate, arrears);
 	}
 }

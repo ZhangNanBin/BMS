@@ -1,5 +1,6 @@
 package web.bms.mappers;
 
+import java.util.Date;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
@@ -17,5 +18,10 @@ public interface IBookBorrowingMapper {
 
 	public BookBorrowing get(int id);
 
+	public BookBorrowing select(@Param("bookBarcode") String bookBarcode, @Param("sendBack") boolean sendBack);
+
 	public void create(BookBorrowing bookBorrowing);
+
+	public void sendBack(@Param("bookBarcode") String bookBarcode, @Param("returnDate") Date returnDate,
+			@Param("arrears") double arrears);
 }

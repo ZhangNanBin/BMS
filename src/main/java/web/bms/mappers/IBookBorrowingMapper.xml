@@ -6,12 +6,18 @@
 <mapper namespace="web.bms.mappers.IBookBorrowingMapper">
 	<insert id="create" parameterType="BookBorrowing">
 		INSERT INTO BookBorrowings
-		(BooKBarCode,ReaderNumber,BorrowingDate,ReturnDate,OperatorNumber,Paid,SendBack)
+		(BookBarcode,ReaderNumber,BorrowingDate,ReturnDate,OperatorNumber,Arrears,Paid,SendBack)
 		VALUES
-		(#{booKBarCode},#{readerNumber},
-		#{borrowingDate},#{returnDate},
-		#{operatorNumber},#{paid}, #{sendBack})
+		(#{bookBarcode},#{readerNumber},#{borrowingDate},
+		#{returnDate},#{operatorNumber},#{arrears},#{paid}, #{sendBack})
 	</insert>
+
+	<update id="sendBack">
+		UPDATE BookBorrowings SET Arrears = #{arrears},
+		SendBack = !SendBack, ReturnDate = #{returnDate}
+		WHERE BookBarcode = #{bookBarcode}
+		AND SendBack = False
+	</update>
 
 	<delete id="delete" parameterType="_int">
 		DELETE FROM BookBorrowings
@@ -23,6 +29,13 @@
 		SELECT * FROM
 		BookBorrowings
 		WHERE Id = #{id}
+	</select>
+
+	<select id="select" resultType="BookBorrowing">
+		SELECT * FROM
+		BookBorrowings
+		WHERE
+		BookBarcode = #{bookBarcode} AND SendBack = #{sendBack}
 	</select>
 
 	<select id="getAll" resultType="BookBorrowing">
