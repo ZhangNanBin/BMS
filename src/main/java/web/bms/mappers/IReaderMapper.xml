@@ -27,7 +27,8 @@
 	<delete id="delete" parameterType="_int">
 		DELETE FROM Readers
 		WHERE
-		Id = #{id}
+		Id =
+		#{id}
 	</delete>
 
 	<select id="get" parameterType="_int" resultType="Reader">
@@ -35,11 +36,18 @@
 		Readers WHERE Id = #{id}
 	</select>
 
+	<select id="getByNumber" parameterType="String"
+		resultType="Reader">
+		SELECT * FROM
+		Readers WHERE Number = #{number}
+	</select>
+
 	<select id="select" parameterType="Reader" resultType="Reader">
 		SELECT *
 		FROM
 		Readers WHERE (Number = #{number} or
-		IdNumber = #{idNumber})
+		IdNumber =
+		#{idNumber})
 		<if test="id != null and id > 0">
 			AND Id != #{id}
 		</if>

@@ -16,6 +16,8 @@ public interface IBookMapper {
 
 	public Book get(int id);
 
+	public Book getByBarcode(String barcode);
+	
 	public Book select(Book book); // 查找出自己Id以外数据(按barcode筛选)
 
 	public int create(Book book);

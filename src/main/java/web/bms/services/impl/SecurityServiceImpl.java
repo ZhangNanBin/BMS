@@ -24,8 +24,9 @@ public class SecurityServiceImpl implements ISecurityService {
 	}
 
 	@Override
-	public void setSession(HttpServletRequest request, User user) {
+	public void setSession(HttpServletRequest request, User user, int userType) {
 		user.setPassWord(null);
+		request.getSession().setAttribute("UserType", userType);
 		request.getSession().setAttribute("CurrentUser", user);
 	}
 

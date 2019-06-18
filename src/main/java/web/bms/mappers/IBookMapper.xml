@@ -36,6 +36,13 @@
 		Books WHERE Id = #{id}
 	</select>
 
+	<select id="getByBarcode" parameterType="String"
+		resultType="Book">
+		SELECT * FROM
+		Books
+		WHERE Barcode = #{barcode}
+	</select>
+
 	<select id="select" parameterType="Book" resultType="Book">
 		SELECT *
 		FROM

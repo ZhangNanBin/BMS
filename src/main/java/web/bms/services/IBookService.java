@@ -12,6 +12,8 @@ public interface IBookService {
 
 	public Book get(int id);
 
+	public Book get(String barcode);
+	
 	public Book select(Book book);
 
 	public int create(Book book);

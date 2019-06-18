@@ -35,6 +35,11 @@ public class ReaderServiceImpl implements IReaderService {
 	}
 
 	@Override
+	public Reader get(String number) {
+		return readerMapper.getByNumber(number);
+	}
+
+	@Override
 	public Reader select(Reader reader) {
 		return readerMapper.select(reader);
 	}

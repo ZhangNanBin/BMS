@@ -12,6 +12,8 @@ public interface IReaderService {
 
 	public Reader get(int id);
 
+	public Reader get(String number);
+
 	public Reader select(Reader reader);
 
 	public void create(Reader reader);
@@ -19,4 +21,5 @@ public interface IReaderService {
 	public void update(Reader reader);
 
 	public void delete(int id);
+
 }

@@ -17,7 +17,9 @@
 	layui.use('table', function() {
 		var table = layui.table;
 		var $ = layui.$;
-
+		const goblName = "";
+		const hnumber="";
+		
 		//GetAll接口实例
 		table.render({
 			elem : '#demo',
@@ -29,8 +31,8 @@
 				limitName : 'pageSize' //每页数据量的参数名
 			},
 			where : { // 可使用编号和姓名进行筛选 模糊查找
-				number : "",
-				name : ""
+				number : $(#name).val,
+				name : $(#name).val
 			},
 			cols : [ [ //表头
 			{

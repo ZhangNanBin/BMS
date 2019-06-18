@@ -39,7 +39,7 @@ public class SecurityController extends ControllerBase {
 		if (user == null) {
 			return Error("用户或密码不正确");
 		}
-		securityService.setSession(request, user);
+		securityService.setSession(request, user,userType);
 		return Success(user);
 	}
 

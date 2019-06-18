@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.annotation.Validated;
 
 import web.bms.entity.Book;
 import web.bms.mappers.IBookMapper;
@@ -32,6 +33,11 @@ public class BookServiceImpl implements IBookService {
 	@Override
 	public Book get(int id) {
 		return bookMapper.get(id);
+	}
+	
+	@Validated
+	public Book get(String barcode) {
+		return bookMapper.getByBarcode(barcode);
 	}
 
 	@Override

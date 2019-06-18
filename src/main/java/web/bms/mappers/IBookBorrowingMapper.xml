@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="web.bms.mappers.IBookBorrowingMapper">
+	<insert id="create" parameterType="BookBorrowing">
+		INSERT INTO BookBorrowings
+		(BooKBarCode,ReaderNumber,BorrowingDate,ReturnDate,OperatorNumber,Paid,SendBack)
+		VALUES
+		(#{booKBarCode},#{readerNumber},
+		#{borrowingDate},#{returnDate},
+		#{operatorNumber},#{paid}, #{sendBack})
+	</insert>
+
+	<delete id="delete" parameterType="_int">
+		DELETE FROM BookBorrowings
+		WHERE
+		Id = #{id}
+	</delete>
+
+	<select id="get" parameterType="_int" resultType="BookBorrowing">
+		SELECT * FROM
+		BookBorrowings
+		WHERE Id = #{id}
+	</select>
+
+	<select id="getAll" resultType="BookBorrowing">
+		<bind name="start" value="(page.pageNo-1)*page.pageSize" />
+		SELECT * FROM BookBorrowings
+		<where>
+			<if test="bookBarcode!=null and bookBarcode!=''">
+				AND BookBarcode LIKE "%"#{bookBarcode}"%"
+			</if>
+			<if test="readerNumber!=null and readerNumber!=''">
+				AND ReaderNumber LIKE "%"#{readerNumber}"%"
+			</if>
+			<if test="sendBack!=null">
+				AND SendBack =#{sendBack}
+			</if>
+			<if test="sendBack!=null">
+				AND Paid =#{paid}
+			</if>
+		</where>
+		<if test="page.pageNo > 0 and page.pageSize > 0">
+			LIMIT #{start}, #{page.pageSize}
+		</if>
+	</select>
+
+	<select id="count" resultType="int">
+		SELECT COUNT(*) FROM BookBorrowings
+		<where>
+			<if test="bookBarcode!=null and bookBarcode!=''">
+				AND BookBarcode LIKE "%"#{bookBarcode}"%"
+			</if>
+			<if test="readerNumber!=null and readerNumber!=''">
+				AND ReaderNumber LIKE "%"#{readerNumber}"%"
+			</if>
+			<if test="sendBack!=null">
+				AND SendBack =#{sendBack}
+			</if>
+			<if test="sendBack!=null">
+				AND Paid =#{paid}
+			</if>
+		</where>
+	</select>
+</mapper>
