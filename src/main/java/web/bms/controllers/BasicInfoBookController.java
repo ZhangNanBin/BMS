@@ -1,6 +1,7 @@
 package web.bms.controllers;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -30,7 +31,7 @@ public class BasicInfoBookController extends ControllerBase {
 
 	@ResponseBody
 	@RequestMapping("getAll")
-	public String getAll(String number, String name, String categoryNumber, int pageNo, int pageSize) {
+	public Map<String, Object> getAll(String number, String name, String categoryNumber, int pageNo, int pageSize) {
 		Page page = new Page(pageNo, pageSize);
 		List<BasicInfoBook> bookCategories = basicInfoBookService.getAll(page, number, name, categoryNumber);
 		int count = basicInfoBookService.count(number, name, categoryNumber);
@@ -39,7 +40,7 @@ public class BasicInfoBookController extends ControllerBase {
 
 	@ResponseBody
 	@RequestMapping("get")
-	public String get(@RequestParam("id") int id) {
+	public Map<String, Object> get(@RequestParam("id") int id) {
 		if (id <= 0) {
 			return Error("Id不合法");
 		}
@@ -50,10 +51,10 @@ public class BasicInfoBookController extends ControllerBase {
 
 	@ResponseBody
 	@RequestMapping("create")
-	public String create(@RequestBody BasicInfoBook basicInfoBook) {
-		String valid = validBasicInfoBook(basicInfoBook);
+	public Map<String, Object> create(@RequestBody BasicInfoBook basicInfoBook) {
+		Map<String, Object> valid = validBasicInfoBook(basicInfoBook);
 
-		if (!Helper.isNullOrEmpty(valid)) {
+		if (valid != null) {
 			return valid;
 		}
 
@@ -63,14 +64,14 @@ public class BasicInfoBookController extends ControllerBase {
 
 	@ResponseBody
 	@RequestMapping("update")
-	public String update(@RequestBody BasicInfoBook basicInfoBook) {
+	public Map<String, Object> update(@RequestBody BasicInfoBook basicInfoBook) {
 		if (basicInfoBook.getId() <= 0) {
 			return Error("Id不合法");
 		}
 
-		String valid = validBasicInfoBook(basicInfoBook);
+		Map<String, Object> valid = validBasicInfoBook(basicInfoBook);
 
-		if (!Helper.isNullOrEmpty(valid)) {
+		if (valid != null) {
 			return valid;
 		}
 
@@ -86,12 +87,12 @@ public class BasicInfoBookController extends ControllerBase {
 
 	@ResponseBody
 	@RequestMapping("delete")
-	public String delete(@RequestParam("id") int id) {
+	public Map<String, Object> delete(@RequestParam("id") int id) {
 		basicInfoBookService.delete(id);
 		return Success();
 	}
 
-	private String validBasicInfoBook(BasicInfoBook basicInfoBook) {
+	private Map<String, Object> validBasicInfoBook(BasicInfoBook basicInfoBook) {
 		if (Helper.isNullOrEmpty(basicInfoBook.getNumber())) {
 			return Error("编号不能为空");
 		}
@@ -103,12 +104,12 @@ public class BasicInfoBookController extends ControllerBase {
 		if (Helper.isNullOrEmpty(basicInfoBook.getCategoryNumber())) {
 			return Error("类别编号不能为空");
 		}
-		
+
 		if (bookCategoryService.get(basicInfoBook.getCategoryNumber()) == null) {
 			return Error("类别编号不存在");
 		}
-		
-		if(basicInfoBookService.select(basicInfoBook)!=null) {
+
+		if (basicInfoBookService.select(basicInfoBook) != null) {
 			return Error("编号已存在");
 		}
 

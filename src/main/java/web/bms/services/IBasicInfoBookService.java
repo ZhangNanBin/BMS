@@ -20,9 +20,5 @@ public interface IBasicInfoBookService {
 
 	public void update(BasicInfoBook basicInfoBook);
 
-	public void delete(int id);
-	
-	public void updateTotal(String number);
-	
-	public void updateBorrowed(String number,int quantity);
+	public void delete(int id);	
 }

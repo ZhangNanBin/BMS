@@ -1,7 +1,6 @@
 package web.bms.controllers;
 
-import com.alibaba.fastjson.JSONObject;
-import com.alibaba.fastjson.serializer.SerializerFeature;
+import java.util.Map;
 
 import web.bms.utility.Success;
 import web.bms.entity.User;
@@ -9,23 +8,23 @@ import web.bms.utility.Error;
 import web.bms.utility.Helper;
 
 public class ControllerBase {
-	public static String Success() {
-		return JSONObject.toJSONString(new Success(),SerializerFeature.WriteMapNullValue);
+	public static Map<String, Object> Success() {
+		return new Success().toMap();
 	}
 
-	public static String Success(Object data) {
-		return JSONObject.toJSONString(new Success(data),SerializerFeature.WriteMapNullValue);
+	public static Map<String, Object> Success(Object data) {
+		return new Success(data).toMap();
 	}
 
-	public static String Success(Object data, int count) {
-		return JSONObject.toJSONString(new Success(data, count),SerializerFeature.WriteMapNullValue);
+	public static Map<String, Object> Success(Object data, int count) {
+		return new Success(data, count).toMap();
 	}
 
-	public static String Error(String msg) {
-		return JSONObject.toJSONString(new Error(msg),SerializerFeature.WriteMapNullValue);
+	public static Map<String, Object> Error(String msg) {
+		return new Error(msg).toMap();
 	}
-	
-	public static String userValid(User user) {
+
+	public static Map<String, Object> userValid(User user) {
 		if (Helper.isNullOrEmpty(user.getIdNumber())) {
 			return Error("编号不能为空");
 		}
@@ -41,7 +40,7 @@ public class ControllerBase {
 		if (Helper.isNullOrEmpty(user.getPassWord())) {
 			return Error("密码不能为空");
 		}
-		
+
 		return null;
 	}
 }

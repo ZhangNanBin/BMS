@@ -59,14 +59,4 @@ public class BasicInfoBookServiceImpl implements IBasicInfoBookService {
 	public void delete(int id) {
 		basicInfoBookMapper.delete(id);
 	}
-
-	@Override
-	public void updateTotal(String number) {
-		basicInfoBookMapper.updateTotal(number);
-	}
-
-	@Override
-	public void updateBorrowed(String number, int quantity) {
-		basicInfoBookMapper.updateBorrowed(number, quantity);
-	}
 }

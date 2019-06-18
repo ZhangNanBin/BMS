@@ -22,6 +22,8 @@
 			<param-value>utf-8</param-value>
 		</init-param>
 	</filter>
+
+	<!-- 设置请求格式无后缀 -->
 	<filter-mapping>
 		<filter-name>CharacterEncodingFilter</filter-name>
 		<url-pattern>/*</url-pattern>
@@ -43,4 +45,8 @@
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
 
+	<!-- 设置Web首页 -->
+	<welcome-file-list>
+		<welcome-file>/Pages/Login.jsp</welcome-file>
+	</welcome-file-list>
 </web-app>

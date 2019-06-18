@@ -24,9 +24,5 @@ public interface IBasicInfoBookMapper {
 
 	public void update(BasicInfoBook basicInfoBook);
 
-	public void delete(int id);
-	
-	public void updateTotal(String number);
-	
-	public void updateBorrowed(@Param("number") String number,@Param("quantity") int quantity);
+	public void delete(int id);	
 }

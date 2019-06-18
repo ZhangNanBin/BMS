@@ -1,6 +1,7 @@
 package web.bms.controllers;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,7 +12,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import web.bms.entity.Reader;
 import web.bms.services.IReaderService;
-import web.bms.utility.Helper;
 import web.bms.utility.Page;
 
 @Controller
@@ -26,7 +26,7 @@ public class ReaderController extends ControllerBase {
 
 	@ResponseBody
 	@RequestMapping("getAll")
-	public String getAll(String number, String name, int pageNo, int pageSize) {
+	public Map<String, Object> getAll(String number, String name, int pageNo, int pageSize) {
 		Page page = new Page(pageNo, pageSize);
 		List<Reader> readers = readerService.getAll(page, number, name);
 		int count = readerService.count(number, name);
@@ -35,7 +35,7 @@ public class ReaderController extends ControllerBase {
 
 	@ResponseBody
 	@RequestMapping("get")
-	public String get(@RequestParam("id") int id) {
+	public Map<String, Object> get(@RequestParam("id") int id) {
 		if (id <= 0) {
 			return Error("Id不合法");
 		}
@@ -46,10 +46,10 @@ public class ReaderController extends ControllerBase {
 
 	@ResponseBody
 	@RequestMapping("create")
-	public String create(@RequestBody Reader reader) {
-		String valid = userValid(reader);
+	public Map<String, Object> create(@RequestBody Reader reader) {
+		Map<String, Object> valid = userValid(reader);
 
-		if (!Helper.isNullOrEmpty(valid)) {
+		if (valid != null) {
 			return valid;
 		}
 
@@ -67,17 +67,17 @@ public class ReaderController extends ControllerBase {
 
 	@ResponseBody
 	@RequestMapping("update")
-	public String update(@RequestBody Reader reader) {
+	public Map<String, Object> update(@RequestBody Reader reader) {
 		if (reader.getId() <= 0) {
 			return Error("Id不合法");
 		}
 
-		String valid = userValid(reader);
+		Map<String, Object> valid = userValid(reader);
 
-		if (!Helper.isNullOrEmpty(valid)) {
+		if (valid != null) {
 			return valid;
 		}
-
+		
 		if (reader.getMaxNumber() <= 0) {
 			return Error("最大借书数量不合法");
 		}
@@ -98,7 +98,7 @@ public class ReaderController extends ControllerBase {
 
 	@ResponseBody
 	@RequestMapping("delete")
-	public String delete(@RequestParam("id") int id) {
+	public Map<String, Object> delete(@RequestParam("id") int id) {
 		readerService.delete(id);
 		return Success();
 	}

@@ -7,39 +7,22 @@
 	<insert id="create" parameterType="BasicInfoBook">
 		INSERT INTO BasicInfoBooks
 		(Number, CategoryNumber, Name, Author, Translator, Press, Price,
-		PublicationTime,Total,Borrowed)
+		PublicationTime)
 		VALUES
 		(#{number}, #{categoryNumber},
 		#{name},#{author},
 		#{translator}, #{press}, #{price},
-		#{publicationTime},#{total},#{borrowed})
+		#{publicationTime})
 	</insert>
 
 	<update id="update" parameterType="BasicInfoBook">
 		UPDATE BasicInfoBooks SET
 		Number = #{number}, CategoryNumber = #{categoryNumber}, Name =
 		#{name}, Author = #{author}, Translator = #{translator}, Press =
-		#{press}, Price = #{price}, PublicationTime = #{publicationTime},
-		Total = #{total}, Borrowed = #{borrowed}
+		#{press}, Price = #{price}, PublicationTime = #{publicationTime}
 		WHERE
 		Id = #{id}
 	</update>
-
-	<update id="updateTotal" parameterType="BasicInfoBook">
-		UPDATE BasicInfoBooks SET
-		Total = Total + 1
-		WHERE
-		Number = #{number}
-	</update>
-
-
-	<update id="updateBorrowed" parameterType="BasicInfoBook">
-		UPDATE BasicInfoBooks
-		SET Borrowed = Borrowed + (#{quantity})
-		WHERE
-		Number = #{number}
-	</update>
-
 
 	<delete id="delete" parameterType="_int">
 		DELETE FROM BasicInfoBooks
@@ -48,12 +31,17 @@
 	</delete>
 
 	<select id="get" parameterType="_int" resultType="BasicInfoBook">
-		SELECT * FROM
+		SELECT *,
+		(SELECT COUNT(*) FROM Books WHERE Books.BasicNumber =
+		BasicInfoBooks.Number) as Total,
+		(SELECT COUNT(*) FROM Books WHERE
+		Books.BasicNumber = BasicInfoBooks.Number AND State = True) as Borrowed FROM
 		BasicInfoBooks
 		WHERE Id = #{id}
 	</select>
 
-	<select id="getByNumber" parameterType="String" resultType="BasicInfoBook">
+	<select id="getByNumber" parameterType="String"
+		resultType="BasicInfoBook">
 		SELECT * FROM
 		BasicInfoBooks
 		WHERE Number = #{number}

@@ -1,6 +1,7 @@
 package web.bms.controllers;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -26,7 +27,7 @@ public class BookCategoryController extends ControllerBase {
 
 	@ResponseBody
 	@RequestMapping("getAll")
-	public String getAll(String number, String name, int pageNo, int pageSize) {
+	public Map<String, Object> getAll(String number, String name, int pageNo, int pageSize) {
 		Page page = new Page(pageNo, pageSize);
 		List<BookCategory> bookCategories = bookCategoryService.getAll(page, number, name);
 		int count = bookCategoryService.count(number, name);
@@ -35,7 +36,7 @@ public class BookCategoryController extends ControllerBase {
 
 	@ResponseBody
 	@RequestMapping("get")
-	public String get(@RequestParam("id") int id) {
+	public Map<String, Object> get(@RequestParam("id") int id) {
 		if (id <= 0) {
 			return Error("Id不合法");
 		}
@@ -46,10 +47,10 @@ public class BookCategoryController extends ControllerBase {
 
 	@ResponseBody
 	@RequestMapping("create")
-	public String create(@RequestBody BookCategory bookCategory) {
-		String valid = validBookCategory(bookCategory);
+	public Map<String, Object> create(@RequestBody BookCategory bookCategory) {
+		Map<String, Object> valid = validBookCategory(bookCategory);
 
-		if (!Helper.isNullOrEmpty(valid)) {
+		if (valid != null) {
 			return valid;
 		}
 
@@ -59,35 +60,35 @@ public class BookCategoryController extends ControllerBase {
 
 	@ResponseBody
 	@RequestMapping("update")
-	public String update(@RequestBody BookCategory bookCategory) {
+	public Map<String, Object> update(@RequestBody BookCategory bookCategory) {
 		if (bookCategory.getId() <= 0) {
 			return Error("Id不合法");
 		}
 
-		String valid = validBookCategory(bookCategory);
+		Map<String, Object> valid = validBookCategory(bookCategory);
 
-		if (!Helper.isNullOrEmpty(valid)) {
+		if (valid != null) {
 			return valid;
 		}
-		
+
 		BookCategory dbData = bookCategoryService.get(bookCategory.getId());
 
 		if (dbData == null) {
 			return Error("数据不存在");
 		}
-		
+
 		bookCategoryService.update(bookCategory);
 		return Success();
 	}
-	
+
 	@ResponseBody
 	@RequestMapping("delete")
-	public String delete(@RequestParam("id") int id) {
+	public Map<String, Object> delete(@RequestParam("id") int id) {
 		bookCategoryService.delete(id);
 		return Success();
 	}
 
-	private String validBookCategory(BookCategory bookCategory) {
+	private Map<String, Object> validBookCategory(BookCategory bookCategory) {
 		if (Helper.isNullOrEmpty(bookCategory.getNumber())) {
 			return Error("编号不能为空");
 		}
@@ -103,8 +104,8 @@ public class BookCategoryController extends ControllerBase {
 		if (bookCategory.getFinesAmount() <= 0) {
 			return Error("罚款金额不合法");
 		}
-		
-		if (bookCategoryService.select(bookCategory)!=null) {
+
+		if (bookCategoryService.select(bookCategory) != null) {
 			return Error("编号已存在");
 		}
 

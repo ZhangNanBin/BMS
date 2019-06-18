@@ -1,5 +1,8 @@
 package web.bms.utility;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class Success {
 	private int code = 0; // 设置成功代码
 	private int count;
@@ -40,5 +43,13 @@ public class Success {
 
 	public void setData(Object data) {
 		this.data = data;
+	}
+	
+	public Map<String, Object> toMap(){
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("code", this.code);
+		map.put("count", this.count);
+		map.put("data", this.data);
+		return map;
 	}
 }

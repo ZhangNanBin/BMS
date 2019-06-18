@@ -1,5 +1,8 @@
 package web.bms.utility;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class Error {
 	private int code = 1; // 设置错误代码
 	private String msg;
@@ -22,5 +25,12 @@ public class Error {
 
 	public void setMsg(String msg) {
 		this.msg = msg;
+	}
+	
+	public Map<String, Object> toMap(){
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("code", this.code);
+		map.put("msg", this.msg);
+		return map;
 	}
 }

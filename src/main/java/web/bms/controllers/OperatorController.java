@@ -1,6 +1,7 @@
 package web.bms.controllers;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,7 +12,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import web.bms.entity.Operator;
 import web.bms.services.IOperatorService;
-import web.bms.utility.Helper;
 import web.bms.utility.Page;
 
 // 告诉spring mvc这是一个控制器类
@@ -27,7 +27,7 @@ public class OperatorController extends ControllerBase {
 
 	@ResponseBody
 	@RequestMapping("getAll")
-	public String getAll(String number, String name, int pageNo, int pageSize) {
+	public Map<String, Object> getAll(String number, String name, int pageNo, int pageSize) {
 		Page page = new Page(pageNo, pageSize);
 		List<Operator> operators = operatorService.getAll(page, number, name);
 		int count = operatorService.count(number, name);
@@ -36,7 +36,7 @@ public class OperatorController extends ControllerBase {
 
 	@ResponseBody
 	@RequestMapping("get")
-	public String get(@RequestParam("id") int id) {
+	public Map<String, Object> get(@RequestParam("id") int id) {
 		if (id <= 0) {
 			return Error("Id不合法");
 		}
@@ -47,10 +47,10 @@ public class OperatorController extends ControllerBase {
 
 	@ResponseBody
 	@RequestMapping("create")
-	public String create(@RequestBody Operator operator) {
-		String valid = userValid(operator);
+	public Map<String, Object> create(@RequestBody Operator operator) {
+		Map<String, Object> valid = userValid(operator);
 
-		if (!Helper.isNullOrEmpty(valid)) {
+		if (valid != null) {
 			return valid;
 		}
 
@@ -64,14 +64,14 @@ public class OperatorController extends ControllerBase {
 
 	@ResponseBody
 	@RequestMapping("update")
-	public String update(@RequestBody Operator operator) {
+	public Map<String, Object> update(@RequestBody Operator operator) {
 		if (operator.getId() <= 0) {
 			return Error("Id不合法");
 		}
 
-		String valid = userValid(operator);
+		Map<String, Object> valid = userValid(operator);
 
-		if (!Helper.isNullOrEmpty(valid)) {
+		if (valid != null) {
 			return valid;
 		}
 
@@ -91,7 +91,7 @@ public class OperatorController extends ControllerBase {
 
 	@ResponseBody
 	@RequestMapping("delete")
-	public String delete(@RequestParam("id") int id) {
+	public Map<String, Object> delete(@RequestParam("id") int id) {
 		operatorService.delete(id);
 		return Success();
 	}

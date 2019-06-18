@@ -1,6 +1,7 @@
 package web.bms.controllers;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -28,7 +29,7 @@ public class SecurityController extends ControllerBase {
 
 	@ResponseBody
 	@RequestMapping("login")
-	public String login(HttpServletRequest request, @RequestParam("number") String number,
+	public Map<String, Object> login(HttpServletRequest request, @RequestParam("number") String number,
 			@RequestParam("passWord") String passWord, @RequestParam("userType") int userType) {
 		if (!UserType.contains(userType)) {
 			return Error("类型代码不存在");
@@ -44,14 +45,14 @@ public class SecurityController extends ControllerBase {
 
 	@ResponseBody
 	@RequestMapping("getSession")
-	public String getSession(HttpServletRequest request) {
+	public Map<String, Object> getSession(HttpServletRequest request) {
 		User user = securityService.getSession(request);
 		return Success(user);
 	}
 
 	@ResponseBody
 	@RequestMapping("closeSession")
-	public String closeSession(HttpServletRequest request) {
+	public Map<String, Object> closeSession(HttpServletRequest request) {
 		request.getSession().removeAttribute("CurrentUser");
 		return Success();
 	}
