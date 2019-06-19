@@ -1,4 +1,6 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<% String path = request.getContextPath(); %>
+
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -166,7 +168,8 @@
                                     {
                                     	layer.msg(data.msg, {
                                             icon: 5,
-                                            time: 1000
+                                            time: 1000,
+                                            zIndex: layer.zIndex
                                         });
                                     }
                                 },
@@ -174,7 +177,8 @@
                                     layer.close(layer.index);
                                     layer.msg(err.responseJSON.Message, {
                                         icon: 5,
-                                        time: 1000
+                                        time: 1000,
+                                        zIndex: layer.zIndex
                                     });
                                 }
                             })
@@ -185,7 +189,8 @@
                         zIndex: layer.zIndex, //重点1
                         success: function (layero) {
                         	laydate.render({
-                                elem: '#workDate'
+                                elem: '#workDate',
+                                trigger: 'click'
                             });
                             layer.setTop(layero); //重点2
                         }
@@ -210,7 +215,8 @@
                         error: function (err) {
                             layer.msg(err.responseJSON.Message, {
                                 icon: 5,
-                                time: 1000
+                                time: 1000,
+                                zIndex: layer.zIndex
                             });
                         }
                     })
@@ -265,7 +271,8 @@
                                 layer.close(layer.index);
                                 layer.msg(err.responseJSON.Message, {
                                     icon: 5,
-                                    time: 1000
+                                    time: 1000,
+                                    zIndex: layer.zIndex
                                 });
                             }
                         })
@@ -276,7 +283,8 @@
                     zIndex: layer.zIndex, //重点1
                     success: function (layero) {
                     	laydate.render({
-                            elem: '#workDate'
+                            elem: '#workDate',
+                            trigger: 'click'
                         });
                     	popForm.val("formTestFilter", {
               			  "id":data.id 

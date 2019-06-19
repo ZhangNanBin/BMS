@@ -1,11 +1,13 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<% String path = request.getContextPath(); %>
+
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title></title>
-    <link rel="stylesheet" href="../../LayUI/css/layui.css" />
+    <link rel="stylesheet" href="<%=path %>/LayUI/css/layui.css" />
 </head>
 <body style="width: 98%; margin: auto">
     <table id="demo" lay-filter="demo"></table>
@@ -39,7 +41,7 @@
 	</form>
 </script>
 
-<script src="../../LayUI/layui.js"></script>
+<script src="<%=path %>/LayUI/layui.js"></script>
 <script>
 	layui.use(['table','form'], function() {
 		var table = layui.table;
@@ -51,7 +53,7 @@
 			elem : '#demo',
 			method : "post",
 			page : true, //开启分页
-	        url: "/bms/Book/getAll",//方法所在页面和方法名
+	        url: "<%=path %>/Book/getAll",//方法所在页面和方法名
 			request : {
 				pageName : 'pageNo',//页码的参数名称
 				limitName : 'pageSize' //每页数据量的参数名
@@ -95,7 +97,7 @@
                             }
                             $.ajax({
                                 type: "post", //要用post方式                 
-                                url: "/bms/Book/create",//方法所在页面和方法名
+                                url: "<%=path %>/Book/create",//方法所在页面和方法名
                                 contentType: "application/json; charset=utf-8",
                                 data: JSON.stringify(data),
                                 dataType: "json",
@@ -107,7 +109,8 @@
                                     layer.close(layer.index);
                                     layer.msg(err.responseJSON.Message, {
                                         icon: 5,
-                                        time: 1000
+                                        time: 1000,
+                                        zIndex: layer.zIndex
                                     });
                                 }
                             })
@@ -115,7 +118,6 @@
                         btn2: function () {
                             layer.close(layer.index);
                         },
-                        zIndex: layer.zIndex, //重点1
                         success: function (layero) {
                             layer.setTop(layero); //重点2
                         }
@@ -148,7 +150,7 @@
                         }
                         $.ajax({
                             type: "post", //要用post方式                 
-                            url: "/bms/Book/update",//方法所在页面和方法名
+                            url: "<%=path %>/Book/update",//方法所在页面和方法名
                             contentType: "application/json; charset=utf-8",
                             data: JSON.stringify(data),
                             dataType: "json",
@@ -160,7 +162,8 @@
                                 layer.close(layer.index);
                                 layer.msg(err.responseJSON.Message, {
                                     icon: 5,
-                                    time: 1000
+                                    time: 1000,
+                                    zIndex: layer.zIndex
                                 });
                             }
                         })
@@ -168,7 +171,6 @@
                     btn2: function () {
                         layer.close(layer.index);
                     },
-                    zIndex: layer.zIndex, //重点1
                     success: function (layero) {
                     	popForm.val("formTestFilter", {
               			  "id":data.id 

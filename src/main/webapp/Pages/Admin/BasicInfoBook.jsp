@@ -170,14 +170,24 @@
                                 data: JSON.stringify(data),
                                 dataType: "json",
                                 success: function (data) {
-                                    layer.close(layer.index);
-                                    table.reload("demo");
+                                	if(data.code == 0){
+                                        layer.close(layer.index);
+                                        table.reload("demo");                                		
+                                	}
+                                	else{
+                                        layer.msg(data.msg, {
+                                            icon: 5,
+                                            time: 1000,
+                                            zIndex: layer.zIndex,
+                                        });
+                                	}
                                 },
                                 error: function (err) {
                                     layer.close(layer.index);
                                     layer.msg(err.responseJSON.Message, {
                                         icon: 5,
-                                        time: 1000
+                                        time: 1000,
+                                        zIndex: layer.zIndex,
                                     });
                                 }
                             })
@@ -185,10 +195,10 @@
                         btn2: function () {
                             layer.close(layer.index);
                         },
-                        zIndex: layer.zIndex, //重点1
                         success: function (layero) {
                         	laydate.render({
-                                elem: '#publicationTime'
+                                elem: '#publicationTime',
+                                trigger: 'click'
                             });
                             layer.setTop(layero); //重点2
                         }
@@ -245,7 +255,8 @@
                                 layer.close(layer.index);
                                 layer.msg(err.responseJSON.Message, {
                                     icon: 5,
-                                    time: 1000
+                                    time: 1000,
+                                    zIndex: layer.zIndex
                                 });
                             }
                         })
@@ -253,10 +264,10 @@
                     btn2: function () {
                         layer.close(layer.index);
                     },
-                    zIndex: layer.zIndex, //重点1
                     success: function (layero) {
                     	laydate.render({
-                            elem: '#publicationTime'
+                            elem: '#publicationTime',
+                            trigger: 'click'
                         });
                     	popForm.val("formTestFilter", {
               			  "id":data.id 

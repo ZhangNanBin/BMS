@@ -1,4 +1,6 @@
 ﻿<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<% String path = request.getContextPath(); %>
+
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -124,7 +126,8 @@
                                     layer.close(layer.index);
                                     layer.msg(err.responseJSON.Message, {
                                         icon: 5,
-                                        time: 1000
+                                        time: 1000,
+                                        zIndex: layer.zIndex
                                     });
                                 }
                             })
@@ -132,7 +135,6 @@
                         btn2: function () {
                             layer.close(layer.index);
                         },
-                        zIndex: layer.zIndex, //重点1
                         success: function (layero) {
                             layer.setTop(layero); //重点2
                         }
@@ -182,7 +184,8 @@
                                 layer.close(layer.index);
                                 layer.msg(err.responseJSON.Message, {
                                     icon: 5,
-                                    time: 1000
+                                    time: 1000,
+                                    zIndex: layer.zIndex
                                 });
                             }
                         })
@@ -190,7 +193,6 @@
                     btn2: function () {
                         layer.close(layer.index);
                     },
-                    zIndex: layer.zIndex, //重点1
                     success: function (layero) {
                     	popForm.val("formTestFilter", {
               			  "id":data.id 

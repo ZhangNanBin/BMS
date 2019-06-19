@@ -195,7 +195,8 @@
                     if (CourseIds.length <= 0) {
                         layer.msg("未选择课程", {
                             icon: 5,
-                            time: 1000
+                            time: 1000,
+                            zIndex: layer.zIndex
                         });
                         return;
                     }
@@ -211,13 +212,15 @@
                                 //返回的数据用data.d获取内容
                                 layer.msg(data.d.Msg, {
                                     icon: 1,
-                                    time: 1000
+                                    time: 1000,
+                                    zIndex: layer.zIndex
                                 });
                             },
                             error: function (err) {
                                 layer.msg(err.responseJSON.Message, {
                                     icon: 5,
-                                    time: 1000
+                                    time: 1000,
+                                    zIndex: layer.zIndex
                                 });
                             }
                         })
@@ -244,13 +247,15 @@
                             //返回的数据用data.d获取内容
                             layer.msg(data.d.Msg, {
                                 icon: 1,
-                                time: 1000
+                                time: 1000,
+                                zIndex: layer.zIndex
                             });
                         },
                         error: function (err) {
                             layer.msg(err.responseJSON.Message, {
                                 icon: 5,
-                                time: 1000
+                                time: 1000,
+                                zIndex: layer.zIndex
                             });
                         }
                     })

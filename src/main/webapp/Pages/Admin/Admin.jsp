@@ -163,7 +163,8 @@
         $("#SystemInfo").click(function () {
             layer.msg("采用Java进行开发，环境为Eclipse", {
                 icon: 1,
-                time: 1000
+                time: 1000,
+                zIndex: layer.zIndex
             });
         });
 
@@ -177,7 +178,8 @@
                 success: function (data) {
                     layer.msg(data.d.Msg, {
                         icon: 1,
-                        time: 1000
+                        time: 1000,
+                        zIndex: layer.zIndex
                     });
                     layer.open({
                         id: "Edit",
@@ -226,7 +228,8 @@
                                     layer.close(layer.index);
                                     layer.msg(err.responseJSON.Message, {
                                         icon: 5,
-                                        time: 1000
+                                        time: 1000,
+                                        zIndex: layer.zIndex
                                     });
                                 }
                             })
@@ -234,7 +237,6 @@
                         btn2: function () {
                             layer.close(layer.index);
                         },
-                        zIndex: layer.zIndex, //重点1
                         success: function (layero) {
                         	popForm.val("formTestFilter", {
                   			  "id":data.id 
@@ -256,7 +258,8 @@
                 error: function (err) {
                     layer.msg(err.responseJSON.Message, {
                         icon: 5,
-                        time: 2000
+                        time: 2000,
+                        zIndex: layer.zIndex
                     });
                 }
             })

@@ -1,11 +1,13 @@
 ﻿<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<% String path = request.getContextPath(); %>
+
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title></title>
-    <link rel="stylesheet" href="../../LayUI/css/layui.css" />
+    <link rel="stylesheet" href="<%=path %>/LayUI/css/layui.css" />
 </head>
 <body style="width: 98%; margin: auto">
     <table id="demo" lay-filter="demo"></table>
@@ -21,7 +23,7 @@
 			elem : '#demo',
 			method : "post",
 			page : true, //开启分页
-	        url: "/bms/BookBorrowing/getAll",//方法所在页面和方法名
+	        url: "<%=path %>/BookBorrowing/getAll",//方法所在页面和方法名
 			request : {
 				pageName : 'pageNo',//页码的参数名称
 				limitName : 'pageSize' //每页数据量的参数名

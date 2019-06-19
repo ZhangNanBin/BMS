@@ -1,4 +1,6 @@
 ﻿<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<% String path = request.getContextPath(); %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -204,7 +206,8 @@
                                     layer.close(layer.index);
                                     layer.msg(err.responseJSON.Message, {
                                         icon: 5,
-                                        time: 1000
+                                        time: 1000,
+                                        zIndex: layer.zIndex
                                     });
                                 }
                             })
@@ -212,13 +215,15 @@
                         btn2: function () {
                             layer.close(layer.index);
                         },
-                        zIndex: layer.zIndex, //重点1
                         success: function (layero) {
                         	laydate.render({
-                                elem: '#birthday'
+                                elem: '#birthday',
+                                trigger: 'click'
+
                             });
                         	laydate.render({
-                                elem: '#certificationDate'
+                                elem: '#certificationDate',
+                                trigger: 'click'
                             });
                             layer.setTop(layero); //重点2
                         }
@@ -243,7 +248,8 @@
                         error: function (err) {
                             layer.msg(err.responseJSON.Message, {
                                 icon: 5,
-                                time: 1000
+                                time: 1000,
+                                zIndex: layer.zIndex
                             });
                         }
                     })
@@ -306,7 +312,8 @@
                                 layer.close(layer.index);
                                 layer.msg(err.responseJSON.Message, {
                                     icon: 5,
-                                    time: 1000
+                                    time: 1000,
+                                    zIndex: layer.zIndex
                                 });
                             }
                         })
@@ -314,13 +321,14 @@
                     btn2: function () {
                         layer.close(layer.index);
                     },
-                    zIndex: layer.zIndex, //重点1
                     success: function (layero) {
                     	laydate.render({
-                            elem: '#birthday'
+                            elem: '#birthday',
+                            trigger: 'click'
                         });
                     	laydate.render({
-                            elem: '#certificationDate'
+                            elem: '#certificationDate',
+                            trigger: 'click'
                         });
                     	popForm.val("formTestFilter", {
               			  "id":data.id 
