@@ -188,14 +188,14 @@ path = request.getContextPath(); %>
                   contentType: "application/json; charset=utf-8",
                   data: JSON.stringify(data),
                   dataType: "json",
-                  success: function(data) {
-                    if (data.code == 0) {
+                  success: function(result) {
+                    if (result.code == 0) {
                       layer.close(layer.index);
                       table.reload("demo", {
                         where: { name: globalName, number: globalNumber }
                       });
                     } else {
-                      layer.msg(data.msg, {
+                      layer.msg(result.msg, {
                         icon: 5,
                         time: 1000,
                         zIndex: layer.zIndex
@@ -238,9 +238,9 @@ path = request.getContextPath(); %>
             globalNumber = "";
             globalName = "";
             table.reload("demo", {
-                where: { name: globalName, number: globalNumber },
-                page: { curr: 1 }
-              });
+              where: { name: globalName, number: globalNumber },
+              page: { curr: 1 }
+            });
             break;
         }
       });
@@ -286,14 +286,14 @@ path = request.getContextPath(); %>
                 contentType: "application/json; charset=utf-8",
                 data: JSON.stringify(data),
                 dataType: "json",
-                success: function(data) {
-                  if (data.code == 0) {
+                success: function(result) {
+                  if (result.code == 0) {
                     layer.close(layer.index);
                     table.reload("demo", {
                       where: { name: globalName, number: globalNumber }
                     });
                   } else {
-                    layer.msg(data.msg, {
+                    layer.msg(result.msg, {
                       icon: 5,
                       time: 1000,
                       zIndex: layer.zIndex
