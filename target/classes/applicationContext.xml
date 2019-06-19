@@ -25,9 +25,9 @@
 		destroy-method="close">
 		<!-- 基本属性 url、user、password -->
 		<property name="url"
-			value="jdbc:mysql://localhost:3306/bms?characterEncoding=UTF-8" />
+			value="jdbc:mysql://localhost:3306/BMS?characterEncoding=UTF-8" />
 		<property name="username" value="root" />
-		<property name="password" value="root" />
+		<property name="password" value="EaseSource" />
 		<property name="driverClassName"
 			value="com.mysql.jdbc.Driver" />
 
