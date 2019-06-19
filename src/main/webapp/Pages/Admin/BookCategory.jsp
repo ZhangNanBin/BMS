@@ -7,7 +7,7 @@
 <head runat="server">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title></title>
-    <link rel="stylesheet" href="../../LayUI/css/layui.css" />
+    <link rel="stylesheet" href="<%=path %>/LayUI/css/layui.css" />
 </head>
 <body style="width: 98%; margin: auto">
     <table id="demo" lay-filter="demo"></table>
@@ -40,20 +40,20 @@
 		<div class="layui-form-item">
             <label class="layui-form-label">可借天数</label>
             <div class="layui-input-block">
-                <input type="text" name="borrowableDays" id="borrowableDays" required lay-verify="required"  autocomplete="off" class="layui-input">
+                <input type="number" name="borrowableDays" id="borrowableDays" required lay-verify="required"  autocomplete="off" class="layui-input">
             </div>
         </div>
 		<div class="layui-form-item">
             <label class="layui-form-label">罚款金额</label>
             <div class="layui-input-block">
-                <input type="text" name="finesAmount" id="finesAmount" required lay-verify="required"  autocomplete="off" class="layui-input">
+                <input type="number" name="finesAmount" id="finesAmount" required lay-verify="required"  autocomplete="off" class="layui-input">
             </div>
         </div>
     </div>
 	</form>
 </script>
 
-<script src="../../LayUI/layui.js"></script>
+<script src="<%=path %>/LayUI/layui.js"></script>
 <script>
 	layui.use(['table','form'], function() {
 		var table = layui.table;
@@ -65,7 +65,7 @@
 			elem : '#demo',
 			method : "post",
 			page : true, //开启分页
-	        url: "/bms/BookCategory/getAll",//方法所在页面和方法名
+	        url: "<%=path %>/BookCategory/getAll",//方法所在页面和方法名
 			request : {
 				pageName : 'pageNo',//页码的参数名称
 				limitName : 'pageSize' //每页数据量的参数名
@@ -114,13 +114,24 @@
                             }
                             $.ajax({
                                 type: "post", //要用post方式                 
-                                url: "/bms/BookCategory/create",//方法所在页面和方法名
+                                url: "<%=path %>/BookCategory/create",//方法所在页面和方法名
                                 contentType: "application/json; charset=utf-8",
                                 data: JSON.stringify(data),
                                 dataType: "json",
-                                success: function (data) {
-                                    layer.close(layer.index);
-                                    table.reload("demo");
+                                success: function (result) {
+                                    if(result.code==0)
+                                	{
+                                        layer.close(layer.index);
+                                        table.reload("demo");
+                                	}
+                                	else
+                                    {
+                                        layer.msg(result.msg, {
+                                            icon: 5,
+                                            time: 1000,
+                                            zIndex: layer.zIndex
+                                        });
+                                    }
                                 },
                                 error: function (err) {
                                     layer.close(layer.index);
@@ -172,13 +183,24 @@
                         }
                         $.ajax({
                             type: "post", //要用post方式                 
-                            url: "/bms/BookCategory/update",//方法所在页面和方法名
+                            url: "<%=path %>/BookCategory/update",//方法所在页面和方法名
                             contentType: "application/json; charset=utf-8",
                             data: JSON.stringify(data),
                             dataType: "json",
                             success: function (data) {
-                                layer.close(layer.index);
-                                table.reload("demo");
+                                if(data.code==0)
+                                {
+                                    layer.close(layer.index);
+                                    table.reload("demo");
+                                }
+                                else
+                                {
+                                    layer.msg(data.msg, {
+                                        icon: 5,
+                                        time: 1000,
+                                        zIndex: layer.zIndex
+                                    });
+                                }
                             },
                             error: function (err) {
                                 layer.close(layer.index);

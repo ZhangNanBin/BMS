@@ -171,12 +171,10 @@
         $("#BasicInfo").click(function () {
             $.ajax({
                 type: "post", //要用post方式                 
-                url: "<%=path %>/Operator/get",//方法所在页面和方法名
-                contentType: "application/json; charset=utf-8",
-                dataType: "json",
+                url: "<%=path %>/Security/getSession",//方法所在页面和方法名
                 data:{id:1},
                 success: function (data) {
-                    layer.msg(data.d.Msg, {
+                    layer.msg("获取成功", {
                         icon: 1,
                         time: 1000,
                         zIndex: layer.zIndex
@@ -198,7 +196,6 @@
                             const sex = $("#sex").val();
                             const age = $("#age").val();
                             const idNumber = $("#idNumber").val();
-                            const workDate = $("#workDate").val();
                             const telephone = $("#telephone").val();
                             const isAdmin = $("#isAdmin").val();
                             const passWord = $("#passWord").val();
@@ -209,7 +206,6 @@
                                     sex : sex,
                                     age : age,
                                     idNumber : idNumber,
-                                    workDate : workDate,
                                     telephone : telephone,
                                     isAdmin : isAdmin,
                                     passWord : passWord
@@ -245,7 +241,6 @@
                   			 ,"sex":data.sex
                   			 ,"age":data.age
                   			 ,"idNumber":data.idNumber
-                  			 ,"workDate":data.workDate
                  			 ,"telephone":data.telephone
                  			 ,"isAdmin":data.isAdmin
                  			 ,"passWord":data.passWord

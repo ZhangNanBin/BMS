@@ -7,7 +7,7 @@
 <head runat="server">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title></title>
-    <link rel="stylesheet" href="../../LayUI/css/layui.css" />
+    <link rel="stylesheet" href="<%=path %>/LayUI/css/layui.css" />
 </head>
 <body style="width: 98%; margin: auto">
     <table id="demo" lay-filter="demo"></table>
@@ -78,7 +78,7 @@
 	</form>
 </script>
 
-<script src="../../LayUI/layui.js"></script>
+<script src="<%=path %>/LayUI/layui.js"></script>
 <script>
 	layui.use(['table','form','laydate'], function() {
 		var table = layui.table;
@@ -91,7 +91,7 @@
 			elem : '#demo',
 			method : "post",
 			page : true, //开启分页
-	        url: "/bms/Operator/getAll",//方法所在页面和方法名
+	        url: "<%=path %>/Operator/getAll",//方法所在页面和方法名
 			request : {
 				pageName : 'pageNo',//页码的参数名称
 				limitName : 'pageSize' //每页数据量的参数名
@@ -154,12 +154,12 @@
                             }
                             $.ajax({
                                 type: "post", //要用post方式                 
-                                url: "/bms/Operator/create",//方法所在页面和方法名
+                                url: "<%=path %>/Operator/create",//方法所在页面和方法名
                                 contentType: "application/json; charset=utf-8",
                                 data: JSON.stringify(data),
                                 dataType: "json",
                                 success: function (data) {
-                                	if(data.code==0)
+                                    if(data.code==0)
                                 	{
                                 		layer.close(layer.index);
                                         table.reload("demo");
@@ -206,7 +206,7 @@
                     const data = { id: parseInt(obj.data.id) };
                     $.ajax({
                         type: "post", //要用post方式                 
-                        url: "/bms/Operator/delete",//方法所在页面和方法名
+                        url: "<%=path %>/Operator/delete",//方法所在页面和方法名
                         data: data,
                         success: function (data) {
                         	layer.close(layer.index);
@@ -259,13 +259,24 @@
                         }
                         $.ajax({
                             type: "post", //要用post方式                 
-                            url: "/bms/Operator/update",//方法所在页面和方法名
+                            url: "<%=path %>/Operator/update",//方法所在页面和方法名
                             contentType: "application/json; charset=utf-8",
                             data: JSON.stringify(data),
                             dataType: "json",
                             success: function (data) {
-                                layer.close(layer.index);
-                                table.reload("demo");
+                            	if(data.code==0)
+                                {
+                                	layer.close(layer.index);
+                                    table.reload("demo");
+                                }
+                                esle
+                                {
+                                	layer.msg(data.msg, {
+                                        icon: 5,
+                                        time: 1000,
+                                        zIndex: layer.zIndex
+                                    });
+                                }
                             },
                             error: function (err) {
                                 layer.close(layer.index);

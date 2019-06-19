@@ -15,6 +15,7 @@
 	  	<h1>图书管理系统</h1><span>Library <a>Management System</a></span>
 	</div>
 	<div class="module form-module">
+		<div class="toggle"><i class="fa fa-times fa-pencil"></i></div>
 	  	<div class="form">
 	    	<h2>登录到您的帐号</h2>
 		      	<input type="text" placeholder="Username" name="UserName" id="UserName" autocomplete="off" class="layui-input"/>

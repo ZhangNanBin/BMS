@@ -13,7 +13,7 @@
     <table id="demo" lay-filter="demo"></table>
 </body>
 
-<script src="../../LayUI/layui.js"></script>
+<script src="<%=path %>/LayUI/layui.js"></script>
 <script>
 	layui.use('table', function() {
 		var table = layui.table;

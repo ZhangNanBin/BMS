@@ -102,8 +102,19 @@
                                 data: JSON.stringify(data),
                                 dataType: "json",
                                 success: function (data) {
-                                    layer.close(layer.index);
-                                    table.reload("demo");
+                                	if(data.code==0)
+                                	{
+                                        layer.close(layer.index);
+                                        table.reload("demo");
+                                	}
+                                	else
+                                    {
+                                        layer.msg(data.msg, {
+                                            icon: 5,
+                                            time: 1000,
+                                            zIndex: layer.zIndex
+                                        });
+                                    }
                                 },
                                 error: function (err) {
                                     layer.close(layer.index);
@@ -155,8 +166,19 @@
                             data: JSON.stringify(data),
                             dataType: "json",
                             success: function (data) {
-                                layer.close(layer.index);
-                                table.reload("demo");
+                                if(data.code==0)
+                                	{
+                                        layer.close(layer.index);
+                                        table.reload("demo");
+                                	}
+                                	else
+                                    {
+                                        layer.msg(data.msg, {
+                                            icon: 5,
+                                            time: 1000,
+                                            zIndex: layer.zIndex
+                                        });
+                                    }
                             },
                             error: function (err) {
                                 layer.close(layer.index);

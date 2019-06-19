@@ -1,5 +1,6 @@
-﻿<%@ page language="java" import="java.util.*" pageEncoding="UTF-8" isELIgnored="true"%>
+﻿<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <% String path = request.getContextPath(); %>
+
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -142,9 +143,11 @@
         var element = layui.element;
         var layer = layui.layer;
         var $ = layui.$ //重点处
+        
         $("#Out").click(function () {
-            window.location.href = "../Login.html";
+            window.location.href = "<%=path %>";
         });
+
         $("#SystemInfo").click(function () {
             layer.msg("采用Java进行开发，环境为Eclipse", {
                 icon: 1,
@@ -152,7 +155,6 @@
                 zIndex: layer.zIndex
             });
         });
-
 
         $("#BasicInfo").click(function () {
             $.ajax({
@@ -267,13 +269,13 @@
         let path = "<%=path %>/Pages";
         switch (value) {
             case "1":
-                path += "/Readers/BookBorrowing.html";
+                path += "/Operator/BookBorrowing.jsp";
                 break;
             case "2":
-                path += "/Readers/BookReturn.html";
+                path += "/Operator/BookReturn.jsp";
                 break;
             default:
-                path += "/Login.aspx"
+                path += "/Welcome.jsp"
                 break;
         }
         return path;

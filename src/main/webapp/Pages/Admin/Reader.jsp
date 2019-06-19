@@ -6,7 +6,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>用AJAX以JSON方式获取数据</title>
-<link rel="stylesheet" href="../../LayUI/css/layui.css" media="all">
+<link rel="stylesheet" href="<%=path %>/LayUI/css/layui.css" media="all">
 
 </head>
 <body>
@@ -107,7 +107,7 @@
     </div>
 	</form>
 </script>
-<script type="text/javascript" src="../../LayUI/layui.js"></script>
+<script type="text/javascript" src="<%=path %>/LayUI/layui.js"></script>
 <script>
 	layui.use(['table','form', 'laydate'], function() {
 		var table = layui.table;
@@ -121,7 +121,7 @@
 			elem : '#demo',
 			method : "post",
 			page : true, //开启分页
-            url: "/bms/Reader/getAll",//方法所在页面和方法名
+            url: "<%=path %>/Reader/getAll",//方法所在页面和方法名
 			request : {
 				pageName : 'pageNo',//页码的参数名称
 				limitName : 'pageSize' //每页数据量的参数名
@@ -194,32 +194,42 @@
                             }
                             $.ajax({
                                 type: "post", //要用post方式                 
-                                url: "/bms/Reader/create",//方法所在页面和方法名
+                                url: "<%=path %>/Reader/create",//方法所在页面和方法名
                                 contentType: "application/json; charset=utf-8",
                                 data: JSON.stringify(data),
                                 dataType: "json",
                                 success: function (data) {
-                                    layer.close(layer.index);
-                                    table.reload("demo");
+                                	if(data.code==0)
+                                	{
+                                		layer.close(layer.index);
+                                        table.reload("demo");
+                                	}
+                                	else
+                                    {
+                                    	layer.msg(data.msg, {
+                                            icon: 5,
+                                            time: 1000,
+                                            zIndex: layer.zIndex
+                                        });
+                                    }
                                 },
                                 error: function (err) {
                                     layer.close(layer.index);
                                     layer.msg(err.responseJSON.Message, {
                                         icon: 5,
                                         time: 1000,
-                                        zIndex: layer.zIndex
-                                    });
+                                        zIndex: layer.zIndex                                    });
                                 }
                             })
                         },
                         btn2: function () {
                             layer.close(layer.index);
                         },
+                        zIndex: layer.zIndex, //重点1
                         success: function (layero) {
                         	laydate.render({
                                 elem: '#birthday',
                                 trigger: 'click'
-
                             });
                         	laydate.render({
                                 elem: '#certificationDate',
@@ -239,7 +249,7 @@
                     const data = { id: parseInt(obj.data.id) };
                     $.ajax({
                         type: "post", //要用post方式                 
-                        url: "/bms/Reader/delete",//方法所在页面和方法名
+                        url: "<%=path %>/Reader/delete",//方法所在页面和方法名
                         data: data,
                         success: function (data) {
                         	layer.close(layer.index);
@@ -300,14 +310,24 @@
                         }
                         $.ajax({
                             type: "post", //要用post方式                 
-                            url: "/bms/Reader/update",//方法所在页面和方法名
+                            url: "<%=path %>/Reader/update",//方法所在页面和方法名
                             contentType: "application/json; charset=utf-8",
                             data: JSON.stringify(data),
                             dataType: "json",
                             success: function (data) {
-                                layer.close(layer.index);
-                                table.reload("demo");
-                            },
+                                if(data.code==0)
+                                {
+                                	layer.close(layer.index);
+                                    table.reload("demo");
+                                }
+                                else
+                                {
+                                	layer.msg(data.msg, {
+                                        icon: 5,
+                                        time: 1000,
+                                        zIndex: layer.zIndex
+                                    });
+                                }                            },
                             error: function (err) {
                                 layer.close(layer.index);
                                 layer.msg(err.responseJSON.Message, {
