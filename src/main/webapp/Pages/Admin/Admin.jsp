@@ -1,11 +1,12 @@
-﻿<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+﻿<%@ page language="java" import="java.util.*" pageEncoding="UTF-8" isELIgnored="true"%>
+<% String path = request.getContextPath(); %>
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head >
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <link rel="stylesheet" href="../../LayUI/css/layui.css" />
-    <link rel="stylesheet" href="../../LayUI/css/admin.css" media="all" />
+    <link rel="stylesheet" href="<%=path %>/LayUI/css/layui.css" />
+    <link rel="stylesheet" href="<%=path %>/LayUI/css/admin.css" media="all" />
     <title>图书管理系统</title>
     <style type="text/css">
         #ifrMain {
@@ -31,8 +32,7 @@
             <ul class="layui-nav layui-layout-right" style="margin-right: 15px">
                 <li class="layui-nav-item">
                     <a href="javascript:;">
-                        <asp:Image runat="server" ID="MyImage" CssClass="layui-nav-img" />
-                        <asp:Label runat="server" ID="UserName"></asp:Label>
+                    	<span>20164089145</span>
                         <span class="layui-nav-more"></span>
                     </a>
                     <dl class="layui-nav-child layui-anim layui-anim-upbit" style="text-align: center;">
@@ -59,13 +59,13 @@
                         </a>
                         <dl class="layui-nav-child">
                             <dd data-name="console">
-                                <a onclick='handleMenuClick("图书信息","1")'>书籍类别</a>
+                                <a onclick='handleMenuClick("书籍类别","1")'>书籍类别</a>
                             </dd>
                             <dd data-name="console">
-                                <a onclick='handleMenuClick("图书详情","2")'>图书基本信息</a>
+                                <a onclick='handleMenuClick("图书基本信息","2")'>图书基本信息</a>
                             </dd>
                             <dd data-name="console">
-                                <a onclick='handleMenuClick("图书详情","3")'>图书信息</a>
+                                <a onclick='handleMenuClick("图书信息","3")'>图书信息</a>
                             </dd>
                         </dl>
                     </li>
@@ -101,7 +101,7 @@
                         </a>
                         <dl class="layui-nav-child">
                             <dd data-name="console">
-                                <a onclick='handleMenuClick("借阅信息","6")'>操作员信息</a>
+                                <a onclick='handleMenuClick("操作员信息","6")'>操作员信息</a>
                             </dd>
                         </dl>
                     </li>
@@ -120,13 +120,13 @@
 
         <!-- 内容主体区域 -->
         <div class="layui-body">
-            <iframe id="ifrMain" name="ifrMain" src="../Operator/Welcome.jsp"></iframe>
+            <iframe id="ifrMain" name="ifrMain" src="<%=path %>/Pages/Welcome.jsp"></iframe>
         </div>
 
     </div>
 </body>
 <script type="text/html" id="editInfo">
-    <input type="hidden" name="Id" id="Id" value="..." />
+    <input type="hidden" name="Id" id="Id" value="" />
     <div style="width: 80%; margin: auto; text-align: center; margin-top: 5%">
         <div class="layui-form-item">
             <label class="layui-form-label">编号</label>
@@ -148,8 +148,8 @@
         </div>
     </div>
 </script>
-<script src="../../LayUI/layui.js"></script>
-<script src="../../LayUI/jquery-3.2.1.min.js"></script>
+<script src="<%=path %>/LayUI/layui.js"></script>
+<script src="<%=path %>/LayUI/jquery-3.2.1.min.js"></script>
 <script>
     //JavaScript代码区域
     layui.use(['element', 'layer'], function () {
@@ -157,7 +157,7 @@
         var layer = layui.layer;
         var $ = layui.$ //重点处
         $("#Out").click(function () {
-            window.location.href = "../Login.jsp";
+            window.location.href = "<%=path %>";
         });
 
         $("#SystemInfo").click(function () {
@@ -170,7 +170,7 @@
         $("#BasicInfo").click(function () {
             $.ajax({
                 type: "post", //要用post方式                 
-                url: "/bms/Operator/get",//方法所在页面和方法名
+                url: "<%=path %>/Operator/get",//方法所在页面和方法名
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 data:{id:1},
@@ -214,7 +214,7 @@
                             }
                             $.ajax({
                                 type: "post", //要用post方式                 
-                                url: "/bms/Operator/update",//方法所在页面和方法名
+                                url: "<%=path %>/Operator/update",//方法所在页面和方法名
                                 contentType: "application/json; charset=utf-8",
                                 data: JSON.stringify(data),
                                 dataType: "json",
@@ -264,7 +264,7 @@
     });
 
     function getUrl(value) {
-        let path = "/bms/Pages";
+        let path = "<%=path %>/Pages";
         switch (value) {
             case "1":
                 path += "/Admin/BookCategory.jsp";
@@ -285,7 +285,7 @@
                 path += "/Admin/Operator.jsp";
                 break;
             default:
-                path += "/Operator/Welcome.jsp"
+                path += "/Welcome.jsp"
                 break;
         }
         return path;
@@ -311,7 +311,7 @@
         tab.remove();
         if (document.getElementById("ifrMain").src === path) {
             document.getElementById("homeIcon").className = "layui-this"
-            document.getElementById("ifrMain").src = "../Operator/Welcome.jsp";
+            document.getElementById("ifrMain").src = "<%=path %>/Pages/Welcome.jsp";
         }
     }
 </script>

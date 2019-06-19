@@ -1,11 +1,12 @@
-﻿<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+﻿<%@ page language="java" import="java.util.*" pageEncoding="UTF-8" isELIgnored="true"%>
+<% String path = request.getContextPath(); %>
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <link rel="stylesheet" href="../../LayUI/css/layui.css" />
-    <link rel="stylesheet" href="../../LayUI/css/admin.css" media="all" />
+    <link rel="stylesheet" href="<%=path %>/LayUI/css/layui.css" />
+    <link rel="stylesheet" href="<%=path %>/LayUI/css/admin.css" media="all" />
     <title>图书管理系统</title>
     <style type="text/css">
         #ifrMain {
@@ -77,7 +78,7 @@
 
         <!-- 内容主体区域 -->
         <div class="layui-body">
-            <iframe id="ifrMain" name="ifrMain" src="Welcome.html"></iframe>
+            <iframe id="ifrMain" name="ifrMain" src="<%=path %>/Pages/Welcome.html"></iframe>
         </div>
 
         <!-- 底部固定区域 -->
@@ -133,8 +134,8 @@
         </div>
     </div>
 </script>
-<script src="../../LayUI/layui.js"></script>
-<script src="../../LayUI/jquery-3.2.1.min.js"></script>
+<script src="<%=path %>/LayUI/layui.js"></script>
+<script src="<%=path %>/LayUI/jquery-3.2.1.min.js"></script>
 <script>
     //JavaScript代码区域
     layui.use(['element', 'layer'], function () {
@@ -255,12 +256,12 @@
         tab.remove();
         if (document.getElementById("ifrMain").src === path) {
             document.getElementById("homeIcon").className = "layui-this"
-            document.getElementById("ifrMain").src = "Welcome.html";
+            document.getElementById("ifrMain").src = "<%=path %>/Pages/Welcome.jsp";
         }
     }
 
     function getUrl(value) {
-        let path = "/BMS/src/main/webapp/Pages";
+        let path = "<%=path %>/Pages";
         switch (value) {
             case "1":
                 path += "/Readers/BookBorrowing.html";

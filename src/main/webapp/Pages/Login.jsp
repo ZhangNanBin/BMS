@@ -1,32 +1,31 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<% String path = request.getContextPath(); %>
 <!DOCTYPE html>
-<html lang="en" >
+<html lang="zh" >
 
 <head>
 	<meta charset="UTF-8">
 	<title>图书管理系统</title>
-	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="<%=path %>/Pages/css/style.css">
 </head>
 
 <body>
 
 	<div class="pen-title">
-	  	<h1>Flat Login Form</h1><span>Pen <i class='fa fa-paint-brush'></i> + <i class='fa fa-code'></i> by <a href=''>Andy Tran</a></span>
+	  	<h1>图书管理系统</h1><span>Library <a>Management System</a></span>
 	</div>
 	<div class="module form-module">
-	  	<div class="toggle"><i class="fa fa-times fa-pencil"></i>
-	  	</div>
 	  	<div class="form">
-	    	<h2>Login to your account</h2>
+	    	<h2>登录到您的帐号</h2>
 		      	<input type="text" placeholder="Username" name="UserName" id="UserName" autocomplete="off" class="layui-input"/>
 		      	<input type="password" placeholder="Password" name="PassWord" id="PassWord" autocomplete="off" class="layui-input"/>
 		      	<button class="layui-btn layui-btn-normal" id="Signin">Login</button>
 	  	</div>
 	</div>
-	<script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+	<script src='<%=path %>/LayUI/jquery-3.2.1.min.js'></script>
 	
-	<script  src="js/index.js"></script>
-	<script  src="../LayUI/layui.js"></script>
+	<script  src="<%=path %>/Pages/js/index.js"></script>
+	<script  src="<%=path %>/LayUI/layui.js"></script>
 	<script>
 	layui.use('table', function() {
 		var table = layui.table;
@@ -43,16 +42,16 @@
 
 		        $.ajax({
 		            type: "post",           
-		            url: "/bms/Security/login",
+		            url: "<%=path %>/Security/login",
 		            data: data,
 		            success: function (result) {
 		                if (result.code ==0) {
 		                    if (result.data.isAdmin) {
-		                   		window.location.href="/bms/Pages/Admin/Admin.jsp";
+		                   		window.location.href="<%=path %>/Pages/Admin/Admin.jsp";
 		                    }
 		                    else
 		                    {
-		                    	window.location.href="/bms/Pages/Operator/Operator.jsp";
+		                    	window.location.href="<%=path %>/Pages/Operator/Operator.jsp";
 		                    }
 
 		                }
