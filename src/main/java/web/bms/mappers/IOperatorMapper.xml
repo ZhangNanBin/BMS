@@ -53,7 +53,7 @@
 				AND Number LIKE "%"#{number}"%"
 			</if>
 			<if test="isAdmin!=null">
-				AND IsAdmin LIKE "%"#{isAdmin}"%"
+				AND IsAdmin = #{isAdmin}
 			</if>
 		</where>
 		<if test="page.pageNo > 0 and page.pageSize > 0">
@@ -71,7 +71,7 @@
 				AND Number LIKE "%"#{number}"%"
 			</if>
 			<if test="isAdmin!=null">
-				AND IsAdmin LIKE "%"#{isAdmin}"%"
+				AND IsAdmin = #{isAdmin}
 			</if>
 		</where>
 	</select>
