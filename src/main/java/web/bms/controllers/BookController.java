@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import web.bms.entity.Book;
+import web.bms.services.IBasicInfoBookService;
 import web.bms.services.IBookService;
 import web.bms.utility.Helper;
 import web.bms.utility.Page;
@@ -19,10 +20,12 @@ import web.bms.utility.Page;
 @RequestMapping("Book")
 public class BookController extends ControllerBase {
 	private IBookService bookService;
+	private IBasicInfoBookService basicInfoBookService;
 
 	@Autowired
-	public BookController(IBookService bookService) {
+	public BookController(IBookService bookService, IBasicInfoBookService basicInfoBookService) {
 		this.bookService = bookService;
+		this.basicInfoBookService = basicInfoBookService;
 	}
 
 	@ResponseBody
@@ -40,8 +43,9 @@ public class BookController extends ControllerBase {
 		if (id <= 0) {
 			return Error("Id不合法");
 		}
-		
-		bookService.updateState("A100-01", false);;
+
+		bookService.updateState("A100-01", false);
+		;
 		Book books = bookService.get(id);
 		return Success(books);
 	}
@@ -94,7 +98,7 @@ public class BookController extends ControllerBase {
 		if (dbData == null) {
 			return Error("数据不存在");
 		}
-		
+
 		bookService.delete(id);
 		return Success();
 	}
@@ -110,6 +114,10 @@ public class BookController extends ControllerBase {
 
 		if (bookService.select(book) != null) {
 			return Error("编号已存在");
+		}
+
+		if (basicInfoBookService.get(book.getBasicNumber()) == null) {
+			return Error("图书编号不存在");
 		}
 
 		return null;
