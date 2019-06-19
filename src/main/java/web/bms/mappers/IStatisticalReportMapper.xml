@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="web.bms.mappers.IStatisticalReportMapper">
+	<select id="readerRanking" resultType="StatisticalDTO">
+		SELECT
+		Readers.Number,Readers.Name,COUNT(*)
+		AS Value FROM BookBorrowings INNER
+		JOIN Readers ON
+		BookBorrowings.ReaderNumber = Readers.Number GROUP BY
+		ReaderNumber
+		ORDER BY COUNT(*) DESC LIMIT 0,10;
+	</select>
+	
+	<select id="basicInfoBookRanking" resultType="StatisticalDTO">
+		SELECT Books.BasicNumber AS Name,COUNT(*) AS Value FROM BookBorrowings INNER
+		JOIN Books ON
+		BookBorrowings.BookBarcode = Books.Barcode GROUP BY
+		Books.BasicNumber
+		ORDER BY COUNT(*) DESC LIMIT 0,10;
+	</select>
+
+</mapper>
+

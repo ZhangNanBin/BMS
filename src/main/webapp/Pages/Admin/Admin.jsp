@@ -1,5 +1,6 @@
-﻿<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"
-isELIgnored="true"%> <% String path = request.getContextPath(); %>
+﻿<%@ page language="java" import="java.util.*" pageEncoding="UTF-8" isELIgnored="true"%> 
+<% String path = request.getContextPath(); %>
+
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -28,6 +29,7 @@ isELIgnored="true"%> <% String path = request.getContextPath(); %>
 
         <ul class="layui-nav layui-layout-left">
           <li class="layui-nav-item"><a id="SystemInfo">系统信息</a></li>
+          <li class="layui-nav-item"><a onclick='handleMenuClick("统计图表","7")' >统计图表</a></li>
         </ul>
         <ul class="layui-nav layui-layout-right" style="margin-right: 15px">
           <li class="layui-nav-item">
@@ -295,6 +297,9 @@ isELIgnored="true"%> <% String path = request.getContextPath(); %>
         case "6":
           path += "/Admin/Operator.jsp";
           break;
+        case "7":
+            path += "/Admin/StatisticalReport.jsp";
+            break;
         default:
           path += "/Welcome.jsp";
           break;
