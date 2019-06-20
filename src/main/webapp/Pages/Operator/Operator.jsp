@@ -1,10 +1,10 @@
 ﻿<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%> 
-<% String path = request.getContextPath(); %>>
+<% String path = request.getContextPath(); %>
 
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
-  <head runat="server">
+  <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <link rel="stylesheet" href="<%=path %>/LayUI/css/layui.css" />
     <link rel="stylesheet" href="<%=path %>/LayUI/css/admin.css" media="all" />
@@ -33,8 +33,7 @@
         <ul class="layui-nav layui-layout-right" style="margin-right: 15px">
           <li class="layui-nav-item">
             <a href="javascript:;">
-              <asp:Image runat="server" ID="MyImage" CssClass="layui-nav-img" />
-              <asp:Label runat="server" ID="UserName"></asp:Label>
+              <span>20164089118</span>
               <span class="layui-nav-more"></span>
             </a>
             <dl
@@ -59,7 +58,7 @@
             <li data-name="Student" class="layui-nav-item">
               <a>
                 <i class="layui-icon layui-icon-template"></i>
-                <cite>读者信息</cite>
+                <cite>图书借还</cite>
                 <span class="layui-nav-more"></span>
               </a>
               <dl class="layui-nav-child">
@@ -71,6 +70,21 @@
                 </dd>
               </dl>
             </li>
+            <li data-name="Student" class="layui-nav-item">
+              <a>
+                <i class="layui-icon layui-icon-template"></i>
+                <cite>图书信息</cite>
+                <span class="layui-nav-more"></span>
+              </a>
+              <dl class="layui-nav-child">
+                <dd>
+                  <a onclick='handleMenuClick("图书类别","3")'>图书类别</a>
+                </dd>
+                <dd>
+                  <a onclick='handleMenuClick("图书信息","4")'>图书信息</a>
+                </dd>
+              </dl>
+            </li>
           </ul>
         </div>
       </div>
@@ -79,7 +93,9 @@
       <div class="layadmin-pagetabs">
         <div class="layui-tab">
           <ul class="layui-tab-title" id="MyTabs">
-            <li id="homeIcon"><i class="layui-icon layui-icon-home"></i></li>
+            <li id="homeIcon">
+              <i class="layui-icon layui-icon-home" onclick="handleMenuClick(999,homeIcon)"></i>
+            </li>
           </ul>
         </div>
       </div>
@@ -89,71 +105,70 @@
         <iframe
           id="ifrMain"
           name="ifrMain"
-          src="<%=path %>/Pages/Welcome.html"
+          src="<%=path %>/Pages/Welcome.jsp"
         ></iframe>
-      </div>
-
-      <!-- 底部固定区域 -->
-      <div class="layui-footer">
-        张南彬 20164089145
       </div>
     </div>
   </body>
   <script type="text/html" id="editInfo">
+	<form class="layui-form" lay-filter="formTestFilter">
+    <input type="hidden" name="id" id="id" value="" />
     <div style="width: 80%; margin: auto; text-align: center; margin-top: 5%">
-        <div class="layui-form-item">
-            <label class="layui-form-label">编号</label>
-            <div class="layui-input-block">
-                <input type="text" name="Number" id="Number" readonly="readonly" required="required" lay-verify="required" placeholder="请输入编号" autocomplete="off" class="layui-input" />
-            </div>
-        </div>
-        <div class="layui-form-item">
-            <label class="layui-form-label">姓名</label>
-            <div class="layui-input-block">
-                <input type="text" name="SName" id="SName" readonly="readonly" required="required" lay-verify="required" placeholder="请输入名称" autocomplete="off" class="layui-input" />
-            </div>
-        </div>
-        <div class="layui-form-item">
-            <label class="layui-form-label">性别</label>
-            <div class="layui-input-block">
-                <input type="text" name="Sex" id="Sex" readonly="readonly" required="required" lay-verify="required" autocomplete="off" class="layui-input" />
-            </div>
-        </div>
-        <div class="layui-form-item">
-            <label class="layui-form-label">年龄</label>
-            <div class="layui-input-block">
-                <input type="text" name="Age" id="Age" required="required" lay-verify="required" autocomplete="off" class="layui-input" />
-            </div>
-        </div>
-        <div class="layui-form-item">
-            <label class="layui-form-label">电话</label>
-            <div class="layui-input-block">
-                <input type="text" name="Age" id="Phone" required="required" lay-verify="required" autocomplete="off" class="layui-input" />
-            </div>
-        </div>
-        <div class="layui-form-item">
-            <label class="layui-form-label">年级</label>
-            <div class="layui-input-block">
-                <input type="text" name="Grade" id="Grade" readonly="readonly"  required="required" lay-verify="required" autocomplete="off" class="layui-input" />
-            </div>
-        </div>
-        <div class="layui-form-item">
-            <label class="layui-form-label">密码</label>
-            <div class="layui-input-block">
-                <input type="password" name="PassWord" id="PassWord" required="required" lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input" />
-            </div>
-        </div>
-    </div>
+           <div class="layui-form-item">
+               <label class="layui-form-label">编号</label>
+               <div class="layui-input-block">
+                   <input type="text" name="number" id="number" required lay-verify="required"  autocomplete="off" class="layui-input">
+               </div>
+           </div>
+           <div class="layui-form-item">
+               <label class="layui-form-label">姓名</label>
+               <div class="layui-input-block">
+                   <input type="text" name="name" id="name" required lay-verify="required"  autocomplete="off" class="layui-input">
+               </div>
+           </div>
+    	<div class="layui-form-item">
+               <label class="layui-form-label">性别</label>
+               <div class="layui-input-block">
+                   <input type="text" name="sex" id="sex" required lay-verify="required"  autocomplete="off" class="layui-input">
+               </div>
+           </div>
+    	<div class="layui-form-item">
+               <label class="layui-form-label">年龄</label>
+               <div class="layui-input-block">
+                   <input type="number" name="age" id="age" required lay-verify="required"  autocomplete="off" class="layui-input">
+               </div>
+           </div>
+    	<div class="layui-form-item">
+               <label class="layui-form-label">身份证号</label>
+               <div class="layui-input-block">
+                   <input type="text" name="idNumber" id="idNumber" required lay-verify="required"  autocomplete="off" class="layui-input">
+               </div>
+           </div>
+    	<div class="layui-form-item">
+               <label class="layui-form-label">联系电话</label>
+               <div class="layui-input-block">
+                   <input type="text" name="telephone" id="telephone" required lay-verify="required"  autocomplete="off" class="layui-input">
+               </div>
+           </div>
+    	<div class="layui-form-item">
+               <label class="layui-form-label">密码</label>
+               <div class="layui-input-block">
+                   <input type="password" name="passWord" id="passWord" required lay-verify="required"  autocomplete="off" class="layui-input">
+               </div>
+           </div>
+       </div>
+	</form>
   </script>
   <script src="<%=path %>/LayUI/layui.js"></script>
   <script src="<%=path %>/LayUI/jquery-3.2.1.min.js"></script>
   <script>
     //JavaScript代码区域
-    layui.use(["element", "layer"], function() {
+    layui.use(["element", "layer", "form"], function() {
       var element = layui.element;
       var layer = layui.layer;
       var $ = layui.$; //重点处
-
+      var form = layui.form;
+      popForm = layui.form;
       $("#Out").click(function() {
         window.location.href = "<%=path %>";
       });
@@ -169,52 +184,52 @@
       $("#BasicInfo").click(function() {
         $.ajax({
           type: "post", //要用post方式
-          url: "./Student.aspx/q", //方法所在页面和方法名
-          contentType: "application/json; charset=utf-8",
-          dataType: "json",
+          url: "<%=path %>/Security/getSession", //方法所在页面和方法名
           success: function(result) {
-            layer.msg(result.msg, {
+            layer.msg("", {
               icon: 1,
               time: 1000,
               zIndex: layer.zIndex
             });
             layer.open({
-              id: "AddInfo",
-              type: 1,
-              title: "编辑用户信息",
+              id: "Edit",
+              type: 1, //此处以iframe举例
+              title: "编辑操作员信息",
               area: ["35%", "80%"],
               shade: 0,
               maxmin: true,
               offset: "auto",
               content: $("#editInfo")[0].innerHTML,
-              btn: ["更新", "取消"],
+              btn: ["更新", "取消"], //只是为了演示
               yes: function() {
-                const Number = $("#Number").val();
-                const SName = $("#SName").val();
-                const Age = $("#Age").val();
-                const PassWord = $("#PassWord").val();
-                const data = {
-                  studentModel: {
-                    Number: Number,
-                    SName: SName,
-                    Age: Age,
-                    PassWord: PassWord
-                  }
-                };
+                  const id = parseInt($("#id").val());
+            	  const number = $("#number").val();
+                  const name = $("#name").val();
+                  const sex = $("#sex").val();
+                  const age = $("#age").val();
+                  const idNumber = $("#idNumber").val();
+                  const telephone = $("#telephone").val();
+                  const isAdmin = Boolean($("#isAdmin").val());
+                  const passWord = $("#passWord").val();
+                  const data = {
+                	id: id,
+                    number: number,
+                    name: name,
+                    sex: sex,
+                    age: age,
+                    idNumber: idNumber,
+                    telephone: telephone,
+                    isAdmin: isAdmin,
+                    passWord: passWord
+                  };
                 $.ajax({
                   type: "post", //要用post方式
-                  url: "./Student.aspx/Update", //方法所在页面和方法名
+                  url: "<%=path %>/Operator/update", //方法所在页面和方法名
                   contentType: "application/json; charset=utf-8",
                   data: JSON.stringify(data),
                   dataType: "json",
-                  success: function(result) {
-                    //返回的数据用data.d获取内容
+                  success: function(data) {
                     layer.close(layer.index);
-                    layer.msg(result.msg, {
-                      icon: 1,
-                      time: 1000,
-                      zIndex: layer.zIndex
-                    });
                   },
                   error: function(err) {
                     layer.close(layer.index);
@@ -230,12 +245,18 @@
                 layer.close(layer.index);
               },
               success: function(layero) {
-                $("#Number")[0].value = data.d.Data[0].Number;
-                $("#SName")[0].value = data.d.Data[0].Name;
-                $("#Sex")[0].value = data.d.Data[0].Sex;
-                $("#Age")[0].value = data.d.Data[0].Age;
-                $("#Phone")[0].value = data.d.Data[0].Telephone;
-                $("#PassWord")[0].value = data.d.Data[0].PassWord;
+                popForm.val("formTestFilter", {
+                  id: result.data.id,
+                  number: result.data.number,
+                  name: result.data.name,
+                  sex: result.data.sex,
+                  age: result.data.age,
+                  idNumber: result.data.idNumber,
+                  telephone: result.data.telephone,
+                  isAdmin: result.data.isAdmin,
+                  passWord: result.data.passWord
+                });
+                popForm.render(null, "formTestFilter");
                 layer.setTop(layero); //重点2
               }
             });
@@ -243,7 +264,7 @@
           error: function(err) {
             layer.msg(err.responseJSON.Message, {
               icon: 5,
-              time: 1000,
+              time: 2000,
               zIndex: layer.zIndex
             });
           }
@@ -279,10 +300,16 @@
       let path = "<%=path %>/Pages";
       switch (value) {
         case "1":
-          path += "/Operator/BookBorrowing.jsp";
+          path += "/Public/BookBorrowing.jsp";
           break;
         case "2":
-          path += "/Operator/BookReturn.jsp";
+          path += "/Public/BookReturn.jsp";
+          break;
+        case "3":
+          path += "/Public/BookCategory.jsp";
+          break;
+        case "4":
+          path += "/Public/BasicInfoBook.jsp";
           break;
         default:
           path += "/Welcome.jsp";

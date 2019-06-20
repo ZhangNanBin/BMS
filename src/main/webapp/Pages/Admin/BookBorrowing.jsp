@@ -1,20 +1,20 @@
-﻿<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%> 
+﻿<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <% String path = request.getContextPath(); %>
 
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
-  <head runat="server">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title></title>
-    <link rel="stylesheet" href="<%=path %>/LayUI/css/layui.css" />
-  </head>
-  <body style="width: 98%; margin: auto">
-    <table id="demo" lay-filter="demo"></table>
-  </body>
+<head runat="server">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<link rel="stylesheet" href="<%=path %>/LayUI/css/layui.css" />
+</head>
+<body style="width: 98%; margin: auto">
+	<table id="demo" lay-filter="demo"></table>
+</body>
 
-  <script src="<%=path %>/LayUI/layui.js"></script>
-  <script>
+<script src="<%=path %>/LayUI/layui.js"></script>
+<script>
     layui.use("table", function() {
       var table = layui.table;
       var $ = layui.$;
@@ -46,14 +46,14 @@
               title: "借阅日期",
               fixed: "left",
               templet:
-                "<div>{{layui.util.toDateString(d.ordertime, 'yyyy-MM-dd')}}</div>"
+                "<div>{{layui.util.toDateString(d.borrowingDate, 'yyyy-MM-dd')}}</div>"
             },
             {
               field: "returnDate",
               title: "归还日期",
               fixed: "left",
               templet:
-                "<div>{{layui.util.toDateString(d.ordertime, 'yyyy-MM-dd')}}</div>"
+                "<div>{{d.returnDate == null ? '': layui.util.toDateString(d.returnDate, 'yyyy-MM-dd')}}</div>"
             },
             { field: "operatorNumber", title: "操作员编号", fixed: "left" },
             { field: "arrears", title: "欠款", fixed: "left" },

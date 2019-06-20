@@ -47,31 +47,42 @@
   </body>
 
   <script src="<%=path %>/LayUI/layui.js"></script>
+  <script src="<%=path %>/LayUI/jquery-3.2.1.min.js"></script>
   <script>
+  layui.use(["table", "form"], function() {
+
     $("#borrowBooks").click(function() {
+   	  const bookBarCode = $("#bookBarCode").val();
+      const readerNumber = $("#readerNumber").val();
+      data={
+    	  bookBarcode: bookBarCode,
+    	  readerNumber: readerNumber
+      };
       $.ajax({
-        type: "post",
-        url: "<%=path %>/BookBorrowing/borrowing", //方法所在页面和方法名
-        data: {},
-        dataType: "json",
-        success: function(result) {
-          layer.close(layer.index);
-          if (result.code != 0) {
-            layer.msg(result.msg, {
-              icon: 5,
-              time: 1000,
-              zIndex: layer.zIndex
-            });
+          type: "post", //要用post方式
+          url: "<%=path %>/BookBorrowing/borrowing", //方法所在页面和方法名
+          contentType: "application/json; charset=utf-8",
+          data: JSON.stringify(data),
+          dataType: "json",
+          success: function(result) {
+            if (result.code == 0) {
+            	$("#bookBarCode").val("");
+            	$("#readerNumber").val("");
+            	layer.msg("借阅成功", {
+                    icon: 1,
+                    time: 1000,
+                    zIndex: layer.zIndex
+                  });
+            } else {
+            	layer.msg(result.msg, {
+                    icon: 5,
+                    time: 1000,
+                    zIndex: layer.zIndex
+                  });
+            }
           }
-        },
-        error: function(err) {
-          layer.msg(err.responseJSON.Message, {
-            icon: 5,
-            time: 1000,
-            zIndex: layer.zIndex
-          });
-        }
       });
     });
+  });
   </script>
 </html>

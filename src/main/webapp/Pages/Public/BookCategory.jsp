@@ -12,9 +12,27 @@
   <body style="width: 98%; margin: auto">
     <table id="demo" lay-filter="demo"></table>
     <script type="text/html" id="toolbarDemo">
-      <div class="layui-btn-container">
-          <button class="layui-btn layui-btn-sm" lay-event="AddInfo">添加</button>
-      </div>
+      <div class="layui-form-item">
+             <div class="layui-inline">
+              <label class="layui-form-label">编号</label>
+              <div class="layui-input-inline">
+                  <input type="tel" name="bookNumber" id="bookNumber" autocomplete="off" class="layui-input">
+              </div>
+             </div>
+             <div class="layui-inline">
+             	<label class="layui-form-label">名称</label>
+              <div class="layui-input-inline">
+               	<input type="text" name="bookName" id="bookName" autocomplete="off" class="layui-input">
+              </div>
+             </div>
+             <div class="layui-inline">
+              <div class="layui-input-inline">
+               	<button class="layui-btn layui-btn-sm" lay-event="Search">搜索</button>
+               	<button class="layui-btn layui-btn-sm" lay-event="Reset">重置</button>
+          		<button class="layui-btn layui-btn-sm" lay-event="AddInfo">添加</button>
+              </div>
+             </div>
+      	    </div>
     </script>
     <script type="text/html" id="barDemo">
       <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
@@ -58,9 +76,13 @@
     layui.use(["table", "form"], function() {
       var table = layui.table;
       var $ = layui.$;
+      var laydate = layui.laydate;
       var form = layui.form;
       popForm = layui.form;
-      //GetAll接口实例
+
+      var globalNumber = "";
+      var globalName = "";
+
       table.render({
         elem: "#demo",
         method: "post",
@@ -72,11 +94,12 @@
         },
         where: {
           // 可使用编号和姓名进行筛选 模糊查找
-          number: "",
-          name: ""
+          number: globalNumber,
+          name: globalName,
+          categoryNumber: ""
         },
         id: "demo",
-        height: 520, //固定值
+        height: 540, //固定值
         toolbar: "#toolbarDemo",
         cols: [
           [
@@ -125,7 +148,9 @@
                   success: function(result) {
                     if (result.code == 0) {
                       layer.close(layer.index);
-                      table.reload("demo");
+                      table.reload("demo", {
+                        where: { name: globalName, number: globalNumber }
+                      });
                     } else {
                       layer.msg(result.msg, {
                         icon: 5,
@@ -151,6 +176,25 @@
                 layer.setTop(layero); //重点2
               }
             });
+            break;
+          case "Search":
+            globalNumber = $("#bookNumber").val();
+            globalName = $("#bookName").val();
+            table.reload("demo", {
+              where: { name: globalName, number: globalNumber },
+              page: { curr: 1 }
+            });
+            $("#bookNumber").val(globalNumber); // Table重载后bookNumber会被清空，所以重新赋值
+            $("#bookName").val(globalName);
+            break;
+          case "Reset":
+            globalNumber = "";
+            globalName = "";
+            table.reload("demo", {
+              where: { name: globalName, number: globalNumber },
+              page: { curr: 1 }
+            });
+            break;
         }
       });
 
@@ -189,9 +233,11 @@
                 data: JSON.stringify(data),
                 dataType: "json",
                 success: function(result) {
-                  if (data.code == 0) {
+                  if (result.code == 0) {
                     layer.close(layer.index);
-                    table.reload("demo");
+                    table.reload("demo", {
+                      where: { name: globalName, number: globalNumber }
+                    });
                   } else {
                     layer.msg(result.msg, {
                       icon: 5,

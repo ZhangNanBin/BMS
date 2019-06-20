@@ -29,12 +29,14 @@
 
         <ul class="layui-nav layui-layout-left">
           <li class="layui-nav-item"><a id="SystemInfo">系统信息</a></li>
-          <li class="layui-nav-item"><a onclick='handleMenuClick("统计图表","7")' >统计图表</a></li>
+          <li class="layui-nav-item">
+            <a onclick='handleMenuClick("统计图表","10")'>统计图表</a>
+          </li>
         </ul>
         <ul class="layui-nav layui-layout-right" style="margin-right: 15px">
           <li class="layui-nav-item">
             <a href="javascript:;">
-              <span>20164089145</span>
+              <span>20164089118</span>
               <span class="layui-nav-more"></span>
             </a>
             <dl
@@ -88,6 +90,19 @@
                 </dd>
               </dl>
             </li>
+
+            <li data-name="Teacher" class="layui-nav-item">
+              <a>
+                <i class="layui-icon layui-icon-template"></i>
+                <cite>欠款</cite>
+                <span class="layui-nav-more"></span>
+              </a>
+              <dl class="layui-nav-child">
+                <dd data-name="console">
+                  <a onclick='handleMenuClick("还款","9")'>还款</a>
+                </dd>
+              </dl>
+            </li>
             <li data-name="Student" class="layui-nav-item">
               <a>
                 <i class="layui-icon layui-icon-template"></i>
@@ -103,12 +118,29 @@
             <li data-name="Student" class="layui-nav-item">
               <a>
                 <i class="layui-icon layui-icon-template"></i>
+                <cite>图书借还</cite>
+                <span class="layui-nav-more"></span>
+              </a>
+              <dl class="layui-nav-child">
+                <dd data-name="console">
+                  <a onclick='handleMenuClick("图书借阅","6")'>图书借阅</a>
+                </dd>
+              </dl>
+              <dl class="layui-nav-child">
+                <dd data-name="console">
+                  <a onclick='handleMenuClick("图书归还","7")'>图书归还</a>
+                </dd>
+              </dl>
+            </li>
+            <li data-name="Student" class="layui-nav-item">
+              <a>
+                <i class="layui-icon layui-icon-template"></i>
                 <cite>操作员信息管理</cite>
                 <span class="layui-nav-more"></span>
               </a>
               <dl class="layui-nav-child">
                 <dd data-name="console">
-                  <a onclick='handleMenuClick("操作员信息","6")'>操作员信息</a>
+                  <a onclick='handleMenuClick("操作员信息","8")'>操作员信息</a>
                 </dd>
               </dl>
             </li>
@@ -141,36 +173,64 @@
     </div>
   </body>
   <script type="text/html" id="editInfo">
-    <input type="hidden" name="Id" id="Id" value="" />
-    <div style="width: 80%; margin: auto; text-align: center; margin-top: 5%">
-        <div class="layui-form-item">
-            <label class="layui-form-label">编号</label>
-            <div class="layui-input-block">
-                <input type="text" name="Number" id="Number" required="required" lay-verify="required" placeholder="请输入编号" autocomplete="off" class="layui-input" />
-            </div>
-        </div>
-        <div class="layui-form-item">
-            <label class="layui-form-label">姓名</label>
-            <div class="layui-input-block">
-                <input type="text" name="AName" id="AName" required="required" lay-verify="required" placeholder="请输入名称" autocomplete="off" class="layui-input" />
-            </div>
-        </div>
-        <div class="layui-form-item">
-            <label class="layui-form-label">密码</label>
-            <div class="layui-input-block">
-                <input type="password" name="PassWord" id="PassWord" required="required" lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input" />
-            </div>
-        </div>
-    </div>
+    <form class="layui-form" lay-filter="formTestFilter">
+       <input type="hidden" name="id" id="id" value="" />
+       <div style="width: 80%; margin: auto; text-align: center; margin-top: 5%">
+              <div class="layui-form-item">
+                  <label class="layui-form-label">编号</label>
+                  <div class="layui-input-block">
+                      <input type="text" name="number" id="number" required lay-verify="required"  autocomplete="off" class="layui-input">
+                  </div>
+              </div>
+              <div class="layui-form-item">
+                  <label class="layui-form-label">姓名</label>
+                  <div class="layui-input-block">
+                      <input type="text" name="name" id="name" required lay-verify="required"  autocomplete="off" class="layui-input">
+                  </div>
+              </div>
+       	<div class="layui-form-item">
+                  <label class="layui-form-label">性别</label>
+                  <div class="layui-input-block">
+                      <input type="text" name="sex" id="sex" required lay-verify="required"  autocomplete="off" class="layui-input">
+                  </div>
+              </div>
+       	<div class="layui-form-item">
+                  <label class="layui-form-label">年龄</label>
+                  <div class="layui-input-block">
+                      <input type="number" name="age" id="age" required lay-verify="required"  autocomplete="off" class="layui-input">
+                  </div>
+              </div>
+       	<div class="layui-form-item">
+                  <label class="layui-form-label">身份证号</label>
+                  <div class="layui-input-block">
+                      <input type="text" name="idNumber" id="idNumber" required lay-verify="required"  autocomplete="off" class="layui-input">
+                  </div>
+              </div>
+       	<div class="layui-form-item">
+                  <label class="layui-form-label">联系电话</label>
+                  <div class="layui-input-block">
+                      <input type="text" name="telephone" id="telephone" required lay-verify="required"  autocomplete="off" class="layui-input">
+                  </div>
+              </div>
+       	<div class="layui-form-item">
+                  <label class="layui-form-label">密码</label>
+                  <div class="layui-input-block">
+                      <input type="password" name="passWord" id="passWord" required lay-verify="required"  autocomplete="off" class="layui-input">
+                  </div>
+              </div>
+          </div>
+    </form>
   </script>
   <script src="<%=path %>/LayUI/layui.js"></script>
   <script src="<%=path %>/LayUI/jquery-3.2.1.min.js"></script>
   <script>
     //JavaScript代码区域
-    layui.use(["element", "layer"], function() {
+    layui.use(["element", "layer", "form"], function() {
       var element = layui.element;
       var layer = layui.layer;
       var $ = layui.$; //重点处
+      var form = layui.form;
+      popForm = layui.form;
       $("#Out").click(function() {
         window.location.href = "<%=path %>";
       });
@@ -187,9 +247,8 @@
         $.ajax({
           type: "post", //要用post方式
           url: "<%=path %>/Security/getSession", //方法所在页面和方法名
-          data: { id: 1 },
           success: function(result) {
-            layer.msg("获取成功", {
+            layer.msg("", {
               icon: 1,
               time: 1000,
               zIndex: layer.zIndex
@@ -197,7 +256,7 @@
             layer.open({
               id: "Edit",
               type: 1, //此处以iframe举例
-              title: "编辑操作员信息",
+              title: "个人信息",
               area: ["35%", "80%"],
               shade: 0,
               maxmin: true,
@@ -209,10 +268,9 @@
                 const number = $("#number").val();
                 const name = $("#name").val();
                 const sex = $("#sex").val();
-                const age = $("#age").val();
+                const age = parseInt($("#age").val());
                 const idNumber = $("#idNumber").val();
                 const telephone = $("#telephone").val();
-                const isAdmin = $("#isAdmin").val();
                 const passWord = $("#passWord").val();
                 const data = {
                   id: id,
@@ -222,7 +280,7 @@
                   age: age,
                   idNumber: idNumber,
                   telephone: telephone,
-                  isAdmin: isAdmin,
+                  isAdmin: true,
                   passWord: passWord
                 };
                 $.ajax({
@@ -233,7 +291,6 @@
                   dataType: "json",
                   success: function(data) {
                     layer.close(layer.index);
-                    table.reload("demo");
                   },
                   error: function(err) {
                     layer.close(layer.index);
@@ -257,7 +314,6 @@
                   age: result.data.age,
                   idNumber: result.data.idNumber,
                   telephone: result.data.telephone,
-                  isAdmin: result.data.isAdmin,
                   passWord: result.data.passWord
                 });
                 popForm.render(null, "formTestFilter");
@@ -280,10 +336,10 @@
       let path = "<%=path %>/Pages";
       switch (value) {
         case "1":
-          path += "/Admin/BookCategory.jsp";
+          path += "/Public/BookCategory.jsp";
           break;
         case "2":
-          path += "/Admin/BasicInfoBook.jsp";
+          path += "/Public/BasicInfoBook.jsp";
           break;
         case "3":
           path += "/Admin/Book.jsp";
@@ -295,11 +351,20 @@
           path += "/Admin/BookBorrowing.jsp";
           break;
         case "6":
-          path += "/Admin/Operator.jsp";
+          path += "/Public/BookBorrowing.jsp";
           break;
         case "7":
-            path += "/Admin/StatisticalReport.jsp";
-            break;
+          path += "/Public/BookReturn.jsp";
+          break;
+        case "8":
+          path += "/Admin/Operator.jsp";
+          break;
+        case "9":
+          path += "/Admin/Repayment.jsp";
+          break;
+        case "10":
+          path += "/Admin/StatisticalReport.jsp";
+          break;
         default:
           path += "/Welcome.jsp";
           break;
