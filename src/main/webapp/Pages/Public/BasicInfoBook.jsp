@@ -147,6 +147,8 @@
                         templet:
                             "<div>{{layui.util.toDateString(d.publicationTime, 'yyyy-MM-dd')}}</div>"
                     },
+                    { field: "total", title: "总量", fixed: "left" },
+                    { field: "borrowed", title: "外借量", fixed: "left" },
                     { fixed: "left", title: "操作", toolbar: "#barDemo" }
                 ]
             ]

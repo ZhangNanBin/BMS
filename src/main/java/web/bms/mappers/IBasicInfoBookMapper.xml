@@ -58,7 +58,11 @@
 
 	<select id="getAll" resultType="BasicInfoBook">
 		<bind name="start" value="(page.pageNo-1)*page.pageSize" />
-		SELECT * FROM BasicInfoBooks
+		SELECT *, (SELECT COUNT(*) FROM Books WHERE Books.BasicNumber =
+		BasicInfoBooks.Number) as Total,
+		(SELECT COUNT(*) FROM Books WHERE
+		Books.BasicNumber = BasicInfoBooks.Number AND State = True) as
+		Borrowed FROM BasicInfoBooks
 		<where>
 			<if test="name!=null and name!=''">
 				AND Name LIKE "%"#{name}"%"

@@ -122,6 +122,6 @@
 
 	<update id="updatePaid" parameterType="String">
 		UPDATE BookBorrowings SET
-		Paid = True WHERE ReaderNumber = #{readerNumber}
+		Paid = True WHERE ReaderNumber = #{readerNumber} AND Arrears > 0
 	</update>
 </mapper>

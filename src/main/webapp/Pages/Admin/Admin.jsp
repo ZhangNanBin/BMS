@@ -38,7 +38,7 @@
             <ul class="layui-nav layui-layout-right" style="margin-right: 15px">
                 <li class="layui-nav-item">
                     <a href="javascript:;">
-                        <span>20164089118</span>
+                        <span id="userName"></span>
                         <span class="layui-nav-more"></span>
                     </a>
                     <dl class="layui-nav-child layui-anim layui-anim-upbit" style="text-align: center;">
@@ -75,18 +75,7 @@
                             </dd>
                         </dl>
                     </li>
-                    <li data-name="Teacher" class="layui-nav-item">
-                        <a>
-                            <i class="layui-icon layui-icon-template"></i>
-                            <cite>读者信息管理</cite>
-                            <span class="layui-nav-more"></span>
-                        </a>
-                        <dl class="layui-nav-child">
-                            <dd data-name="console">
-                                <a onclick='handleMenuClick("读者信息","4")'>读者信息</a>
-                            </dd>
-                        </dl>
-                    </li>
+                  
                     <li data-name="Student" class="layui-nav-item">
                         <a>
                             <i class="layui-icon layui-icon-template"></i>
@@ -111,6 +100,18 @@
                         <dl class="layui-nav-child">
                             <dd data-name="console">
                                 <a onclick='handleMenuClick("还款","9")'>还款</a>
+                            </dd>
+                        </dl>
+                    </li>
+                      <li data-name="Teacher" class="layui-nav-item">
+                        <a>
+                            <i class="layui-icon layui-icon-template"></i>
+                            <cite>读者信息管理</cite>
+                            <span class="layui-nav-more"></span>
+                        </a>
+                        <dl class="layui-nav-child">
+                            <dd data-name="console">
+                                <a onclick='handleMenuClick("读者信息","4")'>读者信息</a>
                             </dd>
                         </dl>
                     </li>
@@ -216,6 +217,21 @@
                 time: 1000,
                 zIndex: layer.zIndex
             });
+        });
+        
+        $.ajax({
+            type: "post", //要用post方式
+            url: "<%=path %>/Security/getSession", //方法所在页面和方法名
+            success: function (result) {
+            	$("#userName").html(result.data.number);
+            },
+            error: function (err) {
+                layer.msg("请求错误或服务器内部错误", {
+                    icon: 5,
+                    time: 2000,
+                    zIndex: layer.zIndex
+                });
+            }
         });
 
         $("#BasicInfo").click(function () {
