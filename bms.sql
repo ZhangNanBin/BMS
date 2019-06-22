@@ -63,8 +63,8 @@ CREATE TABLE `BookBorrowings` (
   `BorrowingDate` date NOT NULL COMMENT '借阅日期',
   `ReturnDate` date DEFAULT NULL COMMENT '归还日期',
   `OperatorNumber` varchar(45) NOT NULL COMMENT '操作员编号',
-  `Arrears` double NOT NULL,
-  `Paid` bit(1) NOT NULL,
+  `Arrears` double NOT NULL COMMENT '欠款金额',
+  `Paid` bit(1) NOT NULL COMMENT '是否还款',
   `SendBack` bit(1) NOT NULL COMMENT '是否归还',
   PRIMARY KEY (`Id`),
   KEY `BookBorrowings_ReaderNumber_idx` (`ReaderNumber`),
@@ -123,9 +123,9 @@ DROP TABLE IF EXISTS `Books`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `Books` (
   `Id` int(11) NOT NULL AUTO_INCREMENT,
-  `Barcode` varchar(45) NOT NULL,
-  `BasicNumber` varchar(45) NOT NULL,
-  `State` bit(1) NOT NULL,
+  `Barcode` varchar(45) NOT NULL COMMENT '条形码',
+  `BasicNumber` varchar(45) NOT NULL COMMENT '图书编号',
+  `State` bit(1) NOT NULL COMMENT '是否外借',
   PRIMARY KEY (`Id`),
   UNIQUE KEY `Barcode_UNIQUE` (`Barcode`),
   KEY `fk_Books_1_idx` (`BasicNumber`),
@@ -163,7 +163,7 @@ CREATE TABLE `Operators` (
   PRIMARY KEY (`Id`),
   UNIQUE KEY `Number_UNIQUE` (`Number`),
   UNIQUE KEY `IdNumber_UNIQUE` (`IdNumber`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -172,7 +172,7 @@ CREATE TABLE `Operators` (
 
 LOCK TABLES `Operators` WRITE;
 /*!40000 ALTER TABLE `Operators` DISABLE KEYS */;
-INSERT INTO `Operators` VALUES (1,'Admin','管理员','男',25,'522222111133330022','2018-11-19','12215698520',_binary '','123456');
+INSERT INTO `Operators` VALUES (1,'Admin','管理员','男',25,'522222111133330022','2018-11-19','12215698520',_binary '','Admin'),(2,'Operator','操作员','男',22,'151515152121565652','2018-11-10','15546254166',_binary '\0','Operator');
 /*!40000 ALTER TABLE `Operators` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -210,7 +210,7 @@ CREATE TABLE `Readers` (
 
 LOCK TABLES `Readers` WRITE;
 /*!40000 ALTER TABLE `Readers` DISABLE KEYS */;
-INSERT INTO `Readers` VALUES (1,'20164089145','张南彬','男','22','13312498600',100,'1998-11-19','学生','身份证','2016-09-01',20,'522325000000000000','');
+INSERT INTO `Readers` VALUES (1,'20164089145','张南彬','男','22','13312498600',100,'1998-11-19','学生','身份证','2016-09-01',20,'522325000000000000','123456');
 /*!40000 ALTER TABLE `Readers` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -223,4 +223,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-06-19  5:17:11
+-- Dump completed on 2019-06-22 12:24:50
